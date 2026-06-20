@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ES2022" /* Versione JavaScript moderna */,
+    "module": "commonjs" /* Sistema dei moduli per Node */,
+    "lib": ["ES2022"] /* Librerie incluse nella compilazione */,
+    "allowJs": true /* Consente file JS se necessario */,
+    "outDir": "./dist" /* Cartella dove finirà il codice compilato */,
+    "rootDir": "./src" /* Cartella del codice sorgente */,
+    "strict": true /* Attiva tutti i controlli di tipo rigidi */,
+    "noImplicitAny": true /* Errore se un tipo è implicitamente 'any' */,
+    "esModuleInterop": true /* Supporto per import standard */,
+    "skipLibCheck": true /* Salta il controllo dei tipi delle librerie esterne */,
+    "forceConsistentCasingInFileNames": true /* Rispetta le maiuscole/minuscole nei file */
+  },
+  "include": ["src/**/*"] /* Compila solo i file dentro /src */
+}
