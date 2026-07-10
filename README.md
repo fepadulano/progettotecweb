@@ -51,6 +51,7 @@ API di Wikipedia): avviano da soli sia il backend che il frontend, ma serve un
 database Postgres raggiungibile e una connessione a internet.
 
 ```bash
+cd e2e
 npm install
-npm run test:e2e
+npm test
 ```

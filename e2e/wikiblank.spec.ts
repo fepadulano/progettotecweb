@@ -26,6 +26,10 @@ async function registerAndLogin(page: Page): Promise<{ email: string; password: 
   await page.getByRole('button', { name: 'Entra' }).click();
   await expect(page).toHaveURL('/game');
 
+  // aspetta che la partita abbia finito di caricare l'articolo da Wikipedia
+  // prima di restituire il controllo al test
+  await expect(page.locator('.guess-input')).toBeVisible({ timeout: 20000 });
+
   return { email, password };
 }
 

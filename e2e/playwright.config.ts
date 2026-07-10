@@ -1,7 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
-  testDir: './e2e',
   fullyParallel: true,
   reporter: 'html',
   // il round trip reale (registrazione, login, avvio partita) tocca il backend,
@@ -23,14 +22,14 @@ export default defineConfig({
   webServer: [
     {
       command: 'npm run dev',
-      cwd: './backend',
+      cwd: '../backend',
       url: 'http://localhost:3000',
       reuseExistingServer: true,
       timeout: 60 * 1000,
     },
     {
       command: 'npm start',
-      cwd: './frontend',
+      cwd: '../frontend',
       url: 'http://localhost:4200',
       reuseExistingServer: true,
       timeout: 120 * 1000,
