@@ -3,8 +3,8 @@
   margin: 60px auto;
   padding: 36px;
   background-color: var(--bg-surface);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-md);
 
   h2 {
     text-align: center;
@@ -24,14 +24,18 @@
     margin-bottom: 6px;
     display: block;
     color: var(--text-secondary);
-    font-size: 13px;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
   }
 
   input {
     width: 100%;
     padding: 11px 12px;
+    background-color: var(--bg-page);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-sm);
+    font-family: inherit;
     font-size: 15px;
     box-sizing: border-box;
     transition:
@@ -53,11 +57,13 @@
     margin-top: 6px;
     padding: 13px;
     background-color: var(--color-primary);
-    color: white;
-    border: none;
+    color: #f2ede2;
+    border: 1px solid var(--color-primary);
     border-radius: var(--radius-sm);
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     cursor: pointer;
     transition:
       background-color 0.2s ease,
@@ -65,6 +71,7 @@
 
     &:hover {
       background-color: var(--color-primary-dark);
+      border-color: var(--color-primary-dark);
     }
     &:active {
       transform: translateY(1px);
@@ -80,8 +87,8 @@
 
   .backend-error {
     background-color: var(--color-danger-bg);
+    border: 1px solid var(--color-danger);
     padding: 10px 12px;
-    border-radius: var(--radius-sm);
     text-align: center;
   }
 
@@ -93,7 +100,7 @@
     color: var(--text-secondary);
   }
   .toggle-link a {
-    color: var(--color-primary);
+    color: var(--color-primary-dark);
     text-decoration: none;
     font-weight: 700;
   }

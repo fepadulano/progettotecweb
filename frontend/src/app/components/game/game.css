@@ -11,18 +11,19 @@
 
 .message {
   display: inline-block;
+  font-family: var(--font-serif);
   font-size: 17px;
   font-weight: 600;
   color: var(--text-secondary);
   background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
   padding: 12px 22px;
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
 }
 
 .message.victory {
   color: var(--color-success-dark);
   background-color: var(--color-success-bg);
+  border-color: var(--color-success);
   font-size: 20px;
 }
 
@@ -31,16 +32,19 @@
   margin: 16px auto 0;
   padding: 11px 24px;
   background-color: var(--color-success);
-  color: white;
-  border: none;
+  color: #f2ede2;
+  border: 1px solid var(--color-success);
   border-radius: var(--radius-sm);
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
 .btn-restart:hover {
   background-color: var(--color-success-dark);
+  border-color: var(--color-success-dark);
 }
 
 .controls-panel {
@@ -53,7 +57,9 @@
 .guess-input {
   width: 100%;
   padding: 13px 16px;
+  font-family: var(--font-serif);
   font-size: 16px;
+  background-color: var(--bg-surface);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
   box-sizing: border-box;
@@ -76,11 +82,12 @@
 
 .controls-buttons button {
   padding: 11px 18px;
-  border: none;
   border-radius: var(--radius-sm);
   cursor: pointer;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   transition:
     background-color 0.2s ease,
     transform 0.1s ease;
@@ -91,18 +98,20 @@
 
 .btn-guess {
   background-color: var(--color-primary);
-  color: white;
+  color: #f2ede2;
+  border: 1px solid var(--color-primary);
 }
 .btn-guess:hover {
   background-color: var(--color-primary-dark);
 }
 
 .btn-title {
-  background-color: var(--color-warning);
-  color: white;
+  background-color: transparent;
+  color: var(--color-warning);
+  border: 1px solid var(--color-warning);
 }
 .btn-title:hover {
-  background-color: #b45309;
+  background-color: var(--color-warning-bg);
 }
 
 .btn-abandon {
@@ -118,13 +127,29 @@
 
 .article-container {
   background-color: var(--bg-surface);
-  padding: 28px;
-  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
   box-shadow: var(--shadow-md);
+  padding: 32px;
   min-height: 380px;
+  position: relative;
+}
+
+.article-container::before {
+  content: 'ARTICOLO';
+  position: absolute;
+  top: -10px;
+  left: 24px;
+  background-color: var(--bg-page);
+  padding: 0 8px;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--color-neutral);
 }
 
 .wiki-text {
+  font-family: var(--font-serif);
   line-height: 1.9;
   font-size: 17px;
   color: var(--text-primary);
