@@ -1,0 +1,30 @@
+<div class="game-container">
+  <div class="status-panel">
+    <p class="message" [class.victory]="isVictory()">{{ gameMessage() }}</p>
+
+    @if (gameOver()) {
+      <button class="btn-restart" (click)="startNewGame()">Gioca un'altra partita</button>
+    }
+  </div>
+
+  @if (sessionId() && !gameOver()) {
+    <div class="controls-panel">
+      <input
+        type="text"
+        class="guess-input"
+        [formControl]="guessControl"
+        placeholder="Scrivi una parola o il titolo..."
+        (keyup.enter)="makeGuess(false)"
+      />
+      <div class="controls-buttons">
+        <button class="btn-guess" (click)="makeGuess(false)">Indovina Parola</button>
+        <button class="btn-title" (click)="makeGuess(true)">Tenta il Titolo!</button>
+        <button class="btn-abandon" (click)="handleAbandon()">Abbandona</button>
+      </div>
+    </div>
+  }
+
+  <div class="article-container">
+    <p class="wiki-text">{{ censoredText() }}</p>
+  </div>
+</div>

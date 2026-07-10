@@ -1,0 +1,27 @@
+<div class="history-container">
+  <h2>Storico Partite</h2>
+
+  @if (loading()) {
+    <p class="status-message">Caricamento in corso...</p>
+  } @else if (errorMessage()) {
+    <p class="status-message error">{{ errorMessage() }}</p>
+  } @else {
+    <ul class="history-list">
+      @for (game of games(); track game.id) {
+        <li>
+          <a [routerLink]="['/storico', game.id]">
+            <span class="title">{{ game.articleTitle }}</span>
+            <span class="status" [class.won]="game.status === 'WON'">
+              {{ game.status === 'WON' ? 'Vinta' : 'Abbandonata' }}
+            </span>
+            <span class="meta">
+              {{ game.attemptsCount }} tentativi · {{ game.username ?? 'Anonimo' }}
+            </span>
+          </a>
+        </li>
+      } @empty {
+        <li class="empty">Nessuna partita conclusa ancora.</li>
+      }
+    </ul>
+  }
+</div>

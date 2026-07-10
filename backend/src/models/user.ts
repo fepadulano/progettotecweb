@@ -1,27 +1,27 @@
-import { DataTypes } from "sequelize";
-import sequelize from "../config/database";
+import { DataTypes, Model } from "sequelize";
+import database from "../config/database";
 
-// Definiamo la tabella 'Users' e i suoi campi
-const User = sequelize.define("User", {
-  id: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
+class User extends Model {
+  declare id: number;
+  declare username: string;
+  declare email: string;
+  declare password: string;
+  declare total_score: number;
+}
+
+User.init(
+  {
+    id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+    username: { type: DataTypes.STRING, allowNull: false, unique: true },
+    email: { type: DataTypes.STRING, allowNull: false, unique: true },
+    password: { type: DataTypes.STRING, allowNull: false },
+    total_score: { type: DataTypes.INTEGER, defaultValue: 0, allowNull: false },
   },
-  username: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true, // Non possono esserci due utenti con lo stesso username
+  {
+    sequelize: database,
+    modelName: "User",
+    tableName: "Users",
   },
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
-  },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false, // La password (hashata) è obbligatoria
-  },
-});
+);
 
 export default User;

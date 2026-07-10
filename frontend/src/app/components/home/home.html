@@ -1,0 +1,41 @@
+<section class="hero">
+  <div class="hero-content">
+    <span class="eyebrow">Il gioco dell'impiccato di Wikipedia</span>
+    <h1>WikiBlank</h1>
+    <p class="description">
+      Ad ogni partita il sistema seleziona casualmente un articolo enciclopedico e ne oscura
+      il testo. Indovina le parole per svelarne il contenuto oppure prova a indovinare
+      direttamente il titolo dell'articolo!
+    </p>
+
+    @if (authService.isAuthenticated()) {
+      <p class="welcome-back">Bentornato, <strong>{{ authService.user() }}</strong>!</p>
+      <a class="btn-hero-primary" routerLink="/game">Inizia una partita</a>
+    } @else {
+      <div class="cta-group">
+        <a class="btn-hero-primary" routerLink="/login">Accedi</a>
+        <a class="btn-hero-secondary" routerLink="/register">Registrati</a>
+      </div>
+    }
+
+    <a class="link" routerLink="/leaderboard">Guarda la classifica &rarr;</a>
+  </div>
+</section>
+
+<section class="how-it-works">
+  <div class="step">
+    <span class="step-number">1</span>
+    <h3>Indovina una parola</h3>
+    <p>Prova le parole che pensi possano trovarsi nel testo censurato.</p>
+  </div>
+  <div class="step">
+    <span class="step-number">2</span>
+    <h3>Svela il testo</h3>
+    <p>Ogni parola corretta viene rivelata in tutte le sue occorrenze.</p>
+  </div>
+  <div class="step">
+    <span class="step-number">3</span>
+    <h3>Indovina il titolo</h3>
+    <p>Tenta il titolo dell'articolo in qualsiasi momento per vincere.</p>
+  </div>
+</section>

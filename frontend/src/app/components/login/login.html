@@ -1,0 +1,50 @@
+<div class="login-container">
+  <h2>Accedi al Gioco</h2>
+
+  <form [formGroup]="loginForm" (ngSubmit)="handleLogin()">
+    <div>
+      <label for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        [class.invalid]="submitted() && loginForm.controls.email.invalid"
+      />
+      @if (submitted() && loginForm.controls.email.errors) {
+        @if (loginForm.controls.email.errors['required']) {
+          <p class="error">L'email è obbligatoria.</p>
+        }
+        @if (loginForm.controls.email.errors['email']) {
+          <p class="error">Inserisci un'email valida.</p>
+        }
+      }
+    </div>
+
+    <div>
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        formControlName="password"
+        [class.invalid]="submitted() && loginForm.controls.password.invalid"
+      />
+
+      @if (submitted() && loginForm.controls.password.errors) {
+        @if (loginForm.controls.password.errors['required']) {
+          <p class="error">La password è obbligatoria.</p>
+        }
+        @if (loginForm.controls.password.errors['minlength']) {
+          <p class="error">La password deve avere almeno 4 caratteri.</p>
+        }
+      }
+    </div>
+
+    @if (errorMessage()) {
+      <p class="error backend-error"><strong>Attenzione:</strong> {{ errorMessage() }}</p>
+    }
+
+    <button type="submit">Entra</button>
+  </form>
+
+  <p class="toggle-link">Non hai un account? <a routerLink="/register">Registrati qui</a></p>
+</div>

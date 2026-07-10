@@ -1,0 +1,81 @@
+.leaderboard-container {
+  max-width: 520px;
+  margin: 50px auto;
+  padding: 32px;
+  background-color: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+h2 {
+  text-align: center;
+  color: var(--text-primary);
+  margin: 0 0 24px;
+  font-size: 22px;
+}
+
+.status-message {
+  text-align: center;
+  color: var(--text-secondary);
+}
+.status-message.error {
+  color: var(--color-danger);
+}
+
+.leaderboard-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.leaderboard-list li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 8px;
+  border-bottom: 1px solid var(--border-color);
+}
+.leaderboard-list li:last-child {
+  border-bottom: none;
+}
+
+.leaderboard-list li.empty {
+  justify-content: center;
+  color: var(--text-secondary);
+  padding: 20px 0;
+}
+
+.rank {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--color-primary-bg);
+  color: var(--color-primary-dark);
+  font-weight: 800;
+  font-size: 13px;
+}
+
+.username {
+  flex: 1;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 13px;
+}
+
+.games-won {
+  font-weight: 700;
+  color: var(--color-success-dark);
+}
+
+.avg-time {
+  color: var(--text-secondary);
+}

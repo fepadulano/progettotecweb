@@ -1,0 +1,117 @@
+.login-container {
+  max-width: 400px;
+  margin: 60px auto;
+  padding: 36px;
+  background-color: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+.login-container h2 {
+  text-align: center;
+  color: var(--text-primary);
+  margin: 0 0 24px;
+  font-size: 22px;
+}
+.login-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.login-container label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+.login-container input {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  box-sizing: border-box;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.login-container input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-bg);
+}
+.login-container input.invalid {
+  border-color: var(--color-danger);
+}
+.login-container button {
+  margin-top: 6px;
+  padding: 13px;
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
+}
+.login-container button:hover {
+  background-color: var(--color-primary-dark);
+}
+.login-container button:active {
+  transform: translateY(1px);
+}
+.login-container .error {
+  color: var(--color-danger);
+  font-size: 13px;
+  margin-top: 6px;
+  margin-bottom: 0;
+}
+.login-container .backend-error {
+  background-color: var(--color-danger-bg);
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  text-align: center;
+}
+
+/* Stile per il link in basso */
+.toggle-link {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 0;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+.toggle-link a {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 700;
+}
+.toggle-link a:hover {
+  text-decoration: underline;
+}
+
+/* Banner di successo con animazione */
+.success-banner {
+  background-color: var(--color-success-bg);
+  color: var(--color-success-dark);
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  text-align: center;
+  font-size: 15px;
+  margin-top: 4px;
+  animation: slideDown 0.4s ease-out forwards;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

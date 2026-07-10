@@ -1,0 +1,76 @@
+<div class="login-container">
+  <h2>Crea un Account</h2>
+
+  <form [formGroup]="registerForm" (ngSubmit)="handleRegister()">
+    <div>
+      <label for="username">Username</label>
+      <input
+        type="text"
+        id="username"
+        formControlName="username"
+        [class.invalid]="submitted() && registerForm.controls.username.invalid"
+      />
+
+      @if (submitted() && registerForm.controls.username.errors) {
+        @if (registerForm.controls.username.errors['required']) {
+          <p class="error">Lo username è obbligatorio.</p>
+        }
+        @if (registerForm.controls.username.errors['minlength']) {
+          <p class="error">Lo username deve avere almeno 3 caratteri.</p>
+        }
+      }
+    </div>
+
+    <div>
+      <label for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        [class.invalid]="submitted() && registerForm.controls.email.invalid"
+      />
+
+      @if (submitted() && registerForm.controls.email.errors) {
+        @if (registerForm.controls.email.errors['required']) {
+          <p class="error">L'email è obbligatoria.</p>
+        }
+        @if (registerForm.controls.email.errors['email']) {
+          <p class="error">Inserisci un'email valida.</p>
+        }
+      }
+    </div>
+
+    <div>
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        formControlName="password"
+        [class.invalid]="submitted() && registerForm.controls.password.invalid"
+      />
+
+      @if (submitted() && registerForm.controls.password.errors) {
+        @if (registerForm.controls.password.errors['required']) {
+          <p class="error">La password è obbligatoria.</p>
+        }
+        @if (registerForm.controls.password.errors['minlength']) {
+          <p class="error">La password deve avere almeno 4 caratteri.</p>
+        }
+      }
+    </div>
+
+    @if (errorMessage()) {
+      <p class="error backend-error"><strong>Attenzione:</strong> {{ errorMessage() }}</p>
+    }
+
+    @if (successMessage()) {
+      <div class="success-banner">
+        🎉 <strong>{{ successMessage() }}</strong>
+      </div>
+    }
+
+    <button type="submit">Registrati</button>
+  </form>
+
+  <p class="toggle-link">Hai già un account? <a routerLink="/login">Accedi qui</a></p>
+</div>

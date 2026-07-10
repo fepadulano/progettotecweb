@@ -1,0 +1,31 @@
+<nav class="main-nav">
+  <a class="brand" routerLink="/home">
+    <span class="brand-mark">W</span>
+    WikiBlank
+  </a>
+
+  <div class="nav-links">
+    <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+      >Home</a
+    >
+    <a routerLink="/leaderboard" routerLinkActive="active">Classifica</a>
+    <a routerLink="/storico" routerLinkActive="active">Storico</a>
+    @if (authService.isAuthenticated()) {
+      <a routerLink="/game" routerLinkActive="active">Gioca</a>
+    }
+  </div>
+
+  <div class="nav-auth">
+    @if (authService.isAuthenticated()) {
+      <span class="nav-user">{{ authService.user() }}</span>
+      <button class="btn-nav-ghost" (click)="logout()">Esci</button>
+    } @else {
+      <a class="btn-nav-link" routerLink="/login" routerLinkActive="active">Accedi</a>
+      <a class="btn-nav-solid" routerLink="/register" routerLinkActive="active">Registrati</a>
+    }
+  </div>
+</nav>
+
+<main class="app-content">
+  <router-outlet></router-outlet>
+</main>

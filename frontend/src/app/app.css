@@ -1,0 +1,123 @@
+.main-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  padding: 14px 32px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  box-shadow: var(--shadow-md);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.18);
+  font-size: 15px;
+}
+
+.nav-links,
+.nav-auth {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.nav-links {
+  flex: 1;
+}
+
+.nav-auth {
+  gap: 14px;
+}
+
+.main-nav a {
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.main-nav a:hover {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.14);
+}
+
+.main-nav a.active {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.24);
+}
+
+.nav-user {
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.btn-nav-ghost {
+  padding: 7px 16px;
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  transition: background-color 0.2s ease;
+}
+.btn-nav-ghost:hover {
+  background-color: rgba(255, 255, 255, 0.16);
+}
+
+.nav-auth a.btn-nav-solid {
+  padding: 7px 16px;
+  background-color: #fff;
+  color: var(--color-primary-dark);
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: 13px;
+}
+.nav-auth a.btn-nav-solid:hover {
+  color: var(--color-primary-dark);
+  background-color: #f3f4f6;
+}
+
+.app-content {
+  min-height: calc(100vh - 62px);
+}
+
+@media (max-width: 720px) {
+  .main-nav {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 14px 20px;
+  }
+  .nav-links,
+  .nav-auth {
+    width: 100%;
+    justify-content: center;
+  }
+}
