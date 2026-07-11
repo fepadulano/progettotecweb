@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { Partita, Utente } from "../models";
 import { censuraTesto } from "../utils/censorText";
 
-const STATI_CONCLUSI = ["WON", "ABANDONED"];
+const STATI_CONCLUSI = ["VINTA", "ABBANDONATA"];
 
 function durataInSecondi(partita: Partita): number {
   return (partita.updatedAt.getTime() - partita.createdAt.getTime()) / 1000;

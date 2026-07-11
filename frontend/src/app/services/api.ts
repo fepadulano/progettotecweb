@@ -54,7 +54,7 @@ export interface AbbandonoResponse {
 export interface RiepilogoPartitaConclusa {
   id: number;
   titoloArticolo: string;
-  stato: string; // WON, ABANDONED
+  stato: string; // VINTA, ABBANDONATA
   tentativi: number;
   durataSecondi: number;
   username: string | null;

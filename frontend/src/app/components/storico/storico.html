@@ -11,8 +11,8 @@
         <li>
           <a [routerLink]="['/storico', partita.id]">
             <span class="titolo">{{ partita.titoloArticolo }}</span>
-            <span class="stato" [class.vinta]="partita.stato === 'WON'">
-              {{ partita.stato === 'WON' ? 'Vinta' : 'Abbandonata' }}
+            <span class="stato" [class.vinta]="partita.stato === 'VINTA'">
+              {{ partita.stato === 'VINTA' ? 'Vinta' : 'Abbandonata' }}
             </span>
             <span class="meta">
               {{ partita.tentativi }} tentativi · {{ partita.username ?? 'Anonimo' }}

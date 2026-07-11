@@ -10,7 +10,7 @@ type StatisticheUtente = {
 export const classifica = async (req: Request, res: Response): Promise<void> => {
   try {
     const partiteVinte = await Partita.findAll({
-      where: { stato: "WON" },
+      where: { stato: "VINTA" },
       include: [{ model: Utente, attributes: ["username"] }],
     });
 

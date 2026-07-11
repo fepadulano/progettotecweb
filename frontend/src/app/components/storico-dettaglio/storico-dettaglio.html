@@ -9,8 +9,8 @@
     @if (partita(); as p) {
       <h2>{{ p.titoloArticolo }}</h2>
       <p class="meta">
-        <span class="stato" [class.vinta]="p.stato === 'WON'">
-          {{ p.stato === 'WON' ? 'Vinta' : 'Abbandonata' }}
+        <span class="stato" [class.vinta]="p.stato === 'VINTA'">
+          {{ p.stato === 'VINTA' ? 'Vinta' : 'Abbandonata' }}
         </span>
         · {{ p.tentativi }} tentativi
         · {{ p.durataSecondi | number: '1.0-0' }}s impiegati

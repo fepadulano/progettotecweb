@@ -35,7 +35,7 @@ Partita.init(
     },
     stato: {
       type: DataTypes.STRING,
-      defaultValue: "IN_PROGRESS",
+      defaultValue: "IN_CORSO",
       field: "status",
     },
     tentativi: {

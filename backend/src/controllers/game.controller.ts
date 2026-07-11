@@ -85,7 +85,7 @@ export const avviaPartita = async (
     // riprendiamo una partita in corso invece di crearne una nuova, così si può
     // continuare da un altro dispositivo senza perdere i progressi
     const partitaEsistente = await Partita.findOne({
-      where: { userId, stato: "IN_PROGRESS" },
+      where: { userId, stato: "IN_CORSO" },
     });
 
     if (partitaEsistente) {
@@ -115,7 +115,7 @@ export const avviaPartita = async (
       userId,
       titoloArticolo,
       testoArticolo, // testo originale, mai inviato al frontend prima della fine partita
-      stato: "IN_PROGRESS",
+      stato: "IN_CORSO",
     });
 
     res.status(201).json({
@@ -155,7 +155,7 @@ async function gestisciTentativoTitolo(
     return;
   }
 
-  partita.stato = "WON";
+  partita.stato = "VINTA";
   const punteggioGuadagnato = Math.max(10, 100 - partita.tentativi * 5);
   partita.punteggio = punteggioGuadagnato;
   await partita.save();
@@ -243,7 +243,7 @@ export const inviaTentativo = async (
       return;
     }
 
-    if (partita.stato !== "IN_PROGRESS") {
+    if (partita.stato !== "IN_CORSO") {
       res.status(400).json({ errore: "Partita già conclusa." });
       return;
     }
@@ -294,12 +294,12 @@ export const abbandonaPartita = async (
       return;
     }
 
-    if (partita.stato !== "IN_PROGRESS") {
+    if (partita.stato !== "IN_CORSO") {
       res.status(400).json({ errore: "La partita è già conclusa." });
       return;
     }
 
-    partita.stato = "ABANDONED";
+    partita.stato = "ABBANDONATA";
     await partita.save();
 
     res.status(200).json({
