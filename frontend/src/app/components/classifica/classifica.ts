@@ -3,11 +3,11 @@ import { DecimalPipe } from '@angular/common';
 import { ApiService, VoceClassifica } from '../../services/api';
 
 @Component({
-  selector: 'app-leaderboard',
+  selector: 'app-classifica',
   standalone: true,
   imports: [DecimalPipe],
-  templateUrl: './leaderboard.html',
-  styleUrl: './leaderboard.css',
+  templateUrl: './classifica.html',
+  styleUrl: './classifica.css',
 })
 export class Classifica implements OnInit {
   servizioApi = inject(ApiService);

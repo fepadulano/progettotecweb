@@ -3,11 +3,11 @@ import { RouterLink } from '@angular/router';
 import { ApiService, RiepilogoPartitaConclusa } from '../../services/api';
 
 @Component({
-  selector: 'app-history',
+  selector: 'app-storico',
   standalone: true,
   imports: [RouterLink],
-  templateUrl: './history.html',
-  styleUrl: './history.css',
+  templateUrl: './storico.html',
+  styleUrl: './storico.css',
 })
 export class Storico implements OnInit {
   servizioApi = inject(ApiService);

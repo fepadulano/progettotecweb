@@ -4,11 +4,11 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ApiService, DettaglioPartitaConclusa } from '../../services/api';
 
 @Component({
-  selector: 'app-history-detail',
+  selector: 'app-storico-dettaglio',
   standalone: true,
   imports: [RouterLink, DecimalPipe],
-  templateUrl: './history-detail.html',
-  styleUrl: './history-detail.css',
+  templateUrl: './storico-dettaglio.html',
+  styleUrl: './storico-dettaglio.css',
 })
 export class DettaglioStorico implements OnInit {
   rotta = inject(ActivatedRoute);
