@@ -15,20 +15,20 @@ export interface LoginRequest {
 }
 
 export interface AuthResponse {
-  message?: string;
+  messaggio?: string;
   token?: string;
   errore?: string; // presente se le credenziali sono errate o se l'utente esiste già
 }
 
 export interface StartGameResponse {
-  sessionId?: number; // assente se il backend fallisce (DB o Wikipedia irraggiungibile)
-  censoredText?: string; // assente per lo stesso motivo
+  idPartita?: number; // assente se il backend fallisce (DB o Wikipedia irraggiungibile)
+  testoCensurato?: string; // assente per lo stesso motivo
   errore?: string;
 }
 
 export interface GuessResponse {
   vittoria: boolean;
-  tipo: string; // 'TESTO' | 'TITOLO' | 'ERRORE' | 'GIA_INDOVINATA' ecc.
+  tipo: string; // TESTO, TITOLO, ERRORE, GIA_INDOVINATA ecc.
   messaggio: string;
   punteggio?: number; // presente solo a fine partita vinta
   titoloOriginale?: string; // inviato solo in caso di vittoria
@@ -40,8 +40,8 @@ export interface GuessResponse {
 export interface LeaderboardEntry {
   id: number;
   username: string;
-  gamesWon: number;
-  avgTimeSeconds: number;
+  partiteVinte: number;
+  tempoMedioSecondi: number;
 }
 
 export interface AbandonResponse {
@@ -53,16 +53,16 @@ export interface AbandonResponse {
 
 export interface CompletedGameSummary {
   id: number;
-  articleTitle: string;
-  status: string; // 'WON' | 'ABANDONED'
-  attemptsCount: number;
-  durationSeconds: number;
+  titoloArticolo: string;
+  stato: string; // WON, ABANDONED
+  tentativi: number;
+  durataSecondi: number;
   username: string | null;
-  playedAt: string;
+  giocataIl: string;
 }
 
 export interface CompletedGameDetail extends CompletedGameSummary {
-  censoredText: string;
+  testoCensurato: string;
 }
 
 @Injectable({

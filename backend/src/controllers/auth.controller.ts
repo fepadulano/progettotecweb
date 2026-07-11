@@ -24,7 +24,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
       password: hashedPassword,
     });
 
-    res.status(201).json({ message: "Utente registrato con successo!" });
+    res.status(201).json({ messaggio: "Utente registrato con successo!" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ errore: "Errore durante la registrazione." });
@@ -53,7 +53,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
       { expiresIn: "24h" },
     );
 
-    res.status(200).json({ message: "Login effettuato!", token });
+    res.status(200).json({ messaggio: "Login effettuato!", token });
   } catch (error) {
     console.error(error);
     res.status(500).json({ errore: "Errore durante il login." });

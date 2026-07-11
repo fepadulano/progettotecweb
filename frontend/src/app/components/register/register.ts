@@ -47,8 +47,8 @@ export class Register {
           }, 1800);
         },
         error: (err) => {
-          if (err.error && (err.error.errore || err.error.message)) {
-            this.errorMessage.set(err.error.errore || err.error.message);
+          if (err.error && (err.error.errore || err.error.messaggio)) {
+            this.errorMessage.set(err.error.errore || err.error.messaggio);
           } else {
             this.errorMessage.set('Credenziali non valide o utente già registrato.');
           }

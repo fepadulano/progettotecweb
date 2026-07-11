@@ -31,8 +31,8 @@ export class Game implements OnInit {
         if (res.errore) {
           this.gameMessage.set(res.errore);
         } else {
-          this.sessionId.set(res.sessionId!);
-          this.censoredText.set(res.censoredText!);
+          this.sessionId.set(res.idPartita!);
+          this.censoredText.set(res.testoCensurato!);
           this.gameMessage.set('Partita iniziata! Prova a indovinare.');
           this.isVictory.set(false);
           this.gameOver.set(false);

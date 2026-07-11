@@ -10,12 +10,12 @@
       @for (game of games(); track game.id) {
         <li>
           <a [routerLink]="['/storico', game.id]">
-            <span class="title">{{ game.articleTitle }}</span>
-            <span class="status" [class.won]="game.status === 'WON'">
-              {{ game.status === 'WON' ? 'Vinta' : 'Abbandonata' }}
+            <span class="title">{{ game.titoloArticolo }}</span>
+            <span class="status" [class.won]="game.stato === 'WON'">
+              {{ game.stato === 'WON' ? 'Vinta' : 'Abbandonata' }}
             </span>
             <span class="meta">
-              {{ game.attemptsCount }} tentativi · {{ game.username ?? 'Anonimo' }}
+              {{ game.tentativi }} tentativi · {{ game.username ?? 'Anonimo' }}
             </span>
           </a>
         </li>

@@ -42,15 +42,15 @@ export class LoginComponent {
           if (response.token) {
             this.authService.loginSuccess(response.token, this.loginForm.value.email as string);
             this.router.navigateByUrl('/game');
-          } else if (response.errore || response.message) {
+          } else if (response.errore || response.messaggio) {
             // il backend a volte risponde 200 OK con un errore dentro il json
-            this.errorMessage.set(response.errore || response.message || 'Errore di login');
+            this.errorMessage.set(response.errore || response.messaggio || 'Errore di login');
           }
         },
         error: (err) => {
           // status 400/401/404: il messaggio vero è dentro err.error
-          if (err.error && (err.error.errore || err.error.message)) {
-            this.errorMessage.set(err.error.errore || err.error.message);
+          if (err.error && (err.error.errore || err.error.messaggio)) {
+            this.errorMessage.set(err.error.errore || err.error.messaggio);
           } else {
             this.errorMessage.set('Credenziali errate');
           }

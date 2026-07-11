@@ -12,8 +12,8 @@
           <span class="rank">{{ $index + 1 }}</span>
           <span class="username">{{ entry.username }}</span>
           <span class="stats">
-            <span class="games-won">{{ entry.gamesWon }} vittorie</span>
-            <span class="avg-time">{{ entry.avgTimeSeconds | number: '1.0-0' }}s in media</span>
+            <span class="games-won">{{ entry.partiteVinte }} vittorie</span>
+            <span class="avg-time">{{ entry.tempoMedioSecondi | number: '1.0-0' }}s in media</span>
           </span>
         </li>
       } @empty {

@@ -12,7 +12,7 @@ export const getLeaderboard = async (
       where: { status: "WON" },
       attributes: [
         "userId",
-        [fn("COUNT", col("GameSession.id")), "gamesWon"],
+        [fn("COUNT", col("GameSession.id")), "partiteVinte"],
         [
           fn(
             "AVG",
@@ -20,14 +20,14 @@ export const getLeaderboard = async (
               `EXTRACT(EPOCH FROM ("GameSession"."updatedAt" - "GameSession"."createdAt"))`,
             ),
           ),
-          "avgTimeSeconds",
+          "tempoMedioSecondi",
         ],
       ],
       include: [{ model: User, attributes: ["username"] }],
       group: ["GameSession.userId", "User.id"],
       order: [
-        [literal('"gamesWon"'), "DESC"],
-        [literal('"avgTimeSeconds"'), "ASC"],
+        [literal('"partiteVinte"'), "DESC"],
+        [literal('"tempoMedioSecondi"'), "ASC"],
       ],
       limit: 10,
       raw: true,
@@ -36,8 +36,8 @@ export const getLeaderboard = async (
     const leaderboard = (rows as any[]).map((row) => ({
       id: row.userId,
       username: row["User.username"],
-      gamesWon: parseInt(row.gamesWon, 10),
-      avgTimeSeconds: parseFloat(row.avgTimeSeconds),
+      partiteVinte: parseInt(row.partiteVinte, 10),
+      tempoMedioSecondi: parseFloat(row.tempoMedioSecondi),
     }));
 
     res.status(200).json(leaderboard);

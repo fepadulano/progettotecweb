@@ -82,8 +82,8 @@ export const startGame = async (req: Request, res: Response): Promise<void> => {
 
     if (existingSession) {
       res.status(200).json({
-        sessionId: existingSession.id,
-        censoredText: censorText(
+        idPartita: existingSession.id,
+        testoCensurato: censorText(
           existingSession.article_text,
           existingSession.guessed_words,
         ),
@@ -111,8 +111,8 @@ export const startGame = async (req: Request, res: Response): Promise<void> => {
     });
 
     res.status(201).json({
-      sessionId: newSession.id,
-      censoredText: censorText(articleText, []),
+      idPartita: newSession.id,
+      testoCensurato: censorText(articleText, []),
     });
   } catch (error) {
     console.error(error);

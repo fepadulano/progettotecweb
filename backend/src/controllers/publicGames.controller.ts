@@ -29,12 +29,12 @@ export const listCompletedGames = async (
 
     const result = sessions.map((session) => ({
       id: session.id,
-      articleTitle: session.article_title,
-      status: session.status,
-      attemptsCount: session.attempts_count,
-      durationSeconds: durationInSeconds(session),
+      titoloArticolo: session.article_title,
+      stato: session.status,
+      tentativi: session.attempts_count,
+      durataSecondi: durationInSeconds(session),
       username: (session as any).User?.username ?? null,
-      playedAt: session.createdAt,
+      giocataIl: session.createdAt,
     }));
 
     res.status(200).json(result);
@@ -67,13 +67,13 @@ export const getCompletedGameDetail = async (
 
     res.status(200).json({
       id: session.id,
-      articleTitle: session.article_title,
-      status: session.status,
-      censoredText: censorText(session.article_text, session.guessed_words),
-      attemptsCount: session.attempts_count,
-      durationSeconds: durationInSeconds(session),
+      titoloArticolo: session.article_title,
+      stato: session.status,
+      testoCensurato: censorText(session.article_text, session.guessed_words),
+      tentativi: session.attempts_count,
+      durataSecondi: durationInSeconds(session),
       username: (session as any).User?.username ?? null,
-      playedAt: session.createdAt,
+      giocataIl: session.createdAt,
     });
   } catch (error) {
     console.error(error);

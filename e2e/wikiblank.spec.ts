@@ -66,7 +66,7 @@ test.describe("registrazione e login", () => {
     await page.getByRole("button", { name: "Registrati" }).click();
     await expect(page).toHaveURL("/login");
 
-    // stessa email, seconda registrazione: deve fallire
+    // stessa email, seconda registrazione deve fallire
     await page.goto("/register");
     await page.locator("#username").fill(`duplicato2${stamp}`);
     await page.locator("#email").fill(email);
@@ -111,8 +111,7 @@ test.describe("partita (utente autenticato)", () => {
   test("indovinare una parola presente nel testo la svela", async ({
     page,
   }) => {
-    // "di" è tra le parole più comuni dell'italiano: praticamente certo
-    // che compaia in un articolo enciclopedico vero
+    // "di" è tra le parole più comuni
     await page.locator(".guess-input").fill("di");
     await page.getByRole("button", { name: "Indovina Parola" }).click();
 
