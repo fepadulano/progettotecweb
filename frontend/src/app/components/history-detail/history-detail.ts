@@ -1,7 +1,7 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { ApiService, CompletedGameDetail } from '../../services/api';
+import { ApiService, DettaglioPartitaConclusa } from '../../services/api';
 
 @Component({
   selector: 'app-history-detail',
@@ -14,14 +14,14 @@ export class HistoryDetail implements OnInit {
   rotta = inject(ActivatedRoute);
   servizioApi = inject(ApiService);
 
-  partita = signal<CompletedGameDetail | null>(null);
+  partita = signal<DettaglioPartitaConclusa | null>(null);
   caricamento = signal(true);
   messaggioErrore = signal('');
 
   ngOnInit() {
     const id = Number(this.rotta.snapshot.paramMap.get('id'));
 
-    this.servizioApi.getCompletedGameDetail(id).subscribe({
+    this.servizioApi.ottieniDettaglioPartita(id).subscribe({
       next: (dati) => {
         this.partita.set(dati);
         this.caricamento.set(false);

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import axios from "axios";
-import { GameSession, Guess, User } from "../models";
-import { censorText } from "../utils/censorText";
+import { Partita, Tentativo, Utente } from "../models";
+import { censuraTesto } from "../utils/censorText";
 
 const WIKI_USER_AGENT =
   "WikiBlank/1.0 (progetto universitario Web Technologies, Federico II)";
@@ -72,20 +72,20 @@ async function recuperaArticoloCasuale(): Promise<{
   return null;
 }
 
-export const startGame = async (req: Request, res: Response): Promise<void> => {
+export const avviaPartita = async (req: Request, res: Response): Promise<void> => {
   try {
     const userId = idUtenteAutenticato(req);
 
     // riprendiamo una partita in corso invece di crearne una nuova, così si può
     // continuare da un altro dispositivo senza perdere i progressi
-    const partitaEsistente = await GameSession.findOne({
+    const partitaEsistente = await Partita.findOne({
       where: { userId, stato: "IN_PROGRESS" },
     });
 
     if (partitaEsistente) {
       res.status(200).json({
         idPartita: partitaEsistente.id,
-        testoCensurato: censorText(
+        testoCensurato: censuraTesto(
           partitaEsistente.testoArticolo,
           partitaEsistente.paroleIndovinate,
         ),
@@ -105,7 +105,7 @@ export const startGame = async (req: Request, res: Response): Promise<void> => {
 
     const { titolo: titoloArticolo, testo: testoArticolo } = articolo;
 
-    const nuovaPartita = await GameSession.create({
+    const nuovaPartita = await Partita.create({
       userId,
       titoloArticolo,
       testoArticolo, // testo originale, mai inviato al frontend prima della fine partita
@@ -114,7 +114,7 @@ export const startGame = async (req: Request, res: Response): Promise<void> => {
 
     res.status(201).json({
       idPartita: nuovaPartita.id,
-      testoCensurato: censorText(testoArticolo, []),
+      testoCensurato: censuraTesto(testoArticolo, []),
     });
   } catch (error) {
     console.error(error);
@@ -125,14 +125,14 @@ export const startGame = async (req: Request, res: Response): Promise<void> => {
 // tentativo sul titolo: o si vince la partita, o si segna solo l'errore
 async function gestisciTentativoTitolo(
   res: Response,
-  partita: GameSession,
+  partita: Partita,
   parola: string,
   parolaNormalizzata: string,
 ): Promise<void> {
   const titoloNormalizzato = partita.titoloArticolo.toLowerCase().trim();
   const titoloCorretto = parolaNormalizzata === titoloNormalizzato;
 
-  await Guess.create({
+  await Tentativo.create({
     sessionId: partita.id,
     parolaTentata: parola,
     corretta: titoloCorretto,
@@ -154,7 +154,7 @@ async function gestisciTentativoTitolo(
   partita.punteggio = punteggioGuadagnato;
   await partita.save();
 
-  const utente = await User.findByPk(partita.userId);
+  const utente = await Utente.findByPk(partita.userId);
   if (utente) {
     utente.punteggioTotale += punteggioGuadagnato;
     await utente.save();
@@ -173,7 +173,7 @@ async function gestisciTentativoTitolo(
 // tentativo su una parola del testo: o si svela ovunque compaia, o si segna l'errore
 async function gestisciTentativoParola(
   res: Response,
-  partita: GameSession,
+  partita: Partita,
   parola: string,
   parolaNormalizzata: string,
 ): Promise<void> {
@@ -182,7 +182,7 @@ async function gestisciTentativoParola(
   const numeroOccorrenze = corrispondenze ? corrispondenze.length : 0;
   const parolaTrovata = numeroOccorrenze > 0;
 
-  await Guess.create({
+  await Tentativo.create({
     sessionId: partita.id,
     parolaTentata: parola,
     corretta: parolaTrovata,
@@ -213,20 +213,20 @@ async function gestisciTentativoParola(
     vittoria: false,
     tipo: "TESTO",
     messaggio: `Ottimo! La parola "${parola}" compare ${numeroOccorrenze} ${etichettaVolta}.`,
-    nuovoTestoCensurato: censorText(
+    nuovoTestoCensurato: censuraTesto(
       partita.testoArticolo,
       partita.paroleIndovinate,
     ),
   });
 }
 
-export const makeGuess = async (req: Request, res: Response): Promise<void> => {
+export const inviaTentativo = async (req: Request, res: Response): Promise<void> => {
   try {
     const userId = idUtenteAutenticato(req);
-    const { sessionId, word, isTitleGuess } = req.body;
+    const { idPartita, parola, eTitolo } = req.body;
 
-    const partita = await GameSession.findOne({
-      where: { id: sessionId, userId },
+    const partita = await Partita.findOne({
+      where: { id: idPartita, userId },
     });
 
     if (!partita) {
@@ -239,26 +239,26 @@ export const makeGuess = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    const parolaNormalizzata = word.toLowerCase().trim();
+    const parolaNormalizzata = parola.toLowerCase().trim();
     const paroleAttuali = partita.paroleIndovinate || [];
 
     // una parola già indovinata non conta come tentativo, altrimenti un doppio
     // click sulla stessa parola costerebbe un punto al giocatore
-    if (!isTitleGuess && paroleAttuali.includes(parolaNormalizzata)) {
+    if (!eTitolo && paroleAttuali.includes(parolaNormalizzata)) {
       res.status(200).json({
         vittoria: false,
         tipo: "GIA_INDOVINATA",
-        messaggio: `Hai già svelato la parola "${word}". Non ti scalo il tentativo, riprova!`,
+        messaggio: `Hai già svelato la parola "${parola}". Non ti scalo il tentativo, riprova!`,
       });
       return;
     }
 
     partita.tentativi += 1;
 
-    if (isTitleGuess) {
-      await gestisciTentativoTitolo(res, partita, word, parolaNormalizzata);
+    if (eTitolo) {
+      await gestisciTentativoTitolo(res, partita, parola, parolaNormalizzata);
     } else {
-      await gestisciTentativoParola(res, partita, word, parolaNormalizzata);
+      await gestisciTentativoParola(res, partita, parola, parolaNormalizzata);
     }
   } catch (error) {
     console.error(error);
@@ -268,16 +268,16 @@ export const makeGuess = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-export const abandonGame = async (
+export const abbandonaPartita = async (
   req: Request,
   res: Response,
 ): Promise<void> => {
   try {
     const userId = idUtenteAutenticato(req);
-    const { sessionId } = req.body;
+    const { idPartita } = req.body;
 
-    const partita = await GameSession.findOne({
-      where: { id: sessionId, userId },
+    const partita = await Partita.findOne({
+      where: { id: idPartita, userId },
     });
 
     if (!partita) {

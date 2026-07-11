@@ -1,19 +1,19 @@
 import { Request, Response } from "express";
-import { GameSession, User } from "../models";
-import { censorText } from "../utils/censorText";
+import { Partita, Utente } from "../models";
+import { censuraTesto } from "../utils/censorText";
 
 const STATI_CONCLUSI = ["WON", "ABANDONED"];
 
-function durataInSecondi(partita: GameSession): number {
+function durataInSecondi(partita: Partita): number {
   return (partita.updatedAt.getTime() - partita.createdAt.getTime()) / 1000;
 }
 
-export const listCompletedGames = async (
+export const elencaPartiteConcluse = async (
   req: Request,
   res: Response,
 ): Promise<void> => {
   try {
-    const partite = await GameSession.findAll({
+    const partite = await Partita.findAll({
       where: { stato: STATI_CONCLUSI },
       attributes: [
         "id",
@@ -23,7 +23,7 @@ export const listCompletedGames = async (
         "createdAt",
         "updatedAt",
       ],
-      include: [{ model: User, attributes: ["username"] }],
+      include: [{ model: Utente, attributes: ["username"] }],
       order: [["updatedAt", "DESC"]],
     });
 
@@ -46,16 +46,16 @@ export const listCompletedGames = async (
   }
 };
 
-export const getCompletedGameDetail = async (
+export const ottieniDettaglioPartita = async (
   req: Request,
   res: Response,
 ): Promise<void> => {
   try {
     const { id } = req.params;
 
-    const partita = await GameSession.findOne({
+    const partita = await Partita.findOne({
       where: { id, stato: STATI_CONCLUSI },
-      include: [{ model: User, attributes: ["username"] }],
+      include: [{ model: Utente, attributes: ["username"] }],
     });
 
     if (!partita) {
@@ -69,7 +69,7 @@ export const getCompletedGameDetail = async (
       id: partita.id,
       titoloArticolo: partita.titoloArticolo,
       stato: partita.stato,
-      testoCensurato: censorText(partita.testoArticolo, partita.paroleIndovinate),
+      testoCensurato: censuraTesto(partita.testoArticolo, partita.paroleIndovinate),
       tentativi: partita.tentativi,
       durataSecondi: durataInSecondi(partita),
       username: (partita as any).User?.username ?? null,

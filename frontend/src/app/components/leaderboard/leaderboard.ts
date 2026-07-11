@@ -1,6 +1,6 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
-import { ApiService, LeaderboardEntry } from '../../services/api';
+import { ApiService, VoceClassifica } from '../../services/api';
 
 @Component({
   selector: 'app-leaderboard',
@@ -12,12 +12,12 @@ import { ApiService, LeaderboardEntry } from '../../services/api';
 export class Leaderboard implements OnInit {
   servizioApi = inject(ApiService);
 
-  voci = signal<LeaderboardEntry[]>([]);
+  voci = signal<VoceClassifica[]>([]);
   caricamento = signal(true);
   messaggioErrore = signal('');
 
   ngOnInit() {
-    this.servizioApi.getLeaderboard().subscribe({
+    this.servizioApi.ottieniClassifica().subscribe({
       next: (dati) => {
         this.voci.set(dati);
         this.caricamento.set(false);

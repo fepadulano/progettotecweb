@@ -1,7 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import database from "../config/database";
 
-class Guess extends Model {
+class Tentativo extends Model {
   declare id: number;
   declare parolaTentata: string;
   declare corretta: boolean;
@@ -9,7 +9,9 @@ class Guess extends Model {
   declare tentativoSulTitolo: boolean;
 }
 
-Guess.init(
+// modelName resta "Guess": è il nome con cui Sequelize ha già creato la
+// tabella fisica, cambiarlo la farebbe cercare una tabella inesistente
+Tentativo.init(
   {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
     parolaTentata: {
@@ -36,4 +38,4 @@ Guess.init(
   },
 );
 
-export default Guess;
+export default Tentativo;

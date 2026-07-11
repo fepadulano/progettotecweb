@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { User } from "../models";
+import { Utente } from "../models";
 
-export const register = async (req: Request, res: Response): Promise<void> => {
+export const registra = async (req: Request, res: Response): Promise<void> => {
   try {
     const { username, email, password } = req.body;
 
-    const utenteEsistente = await User.findOne({ where: { email } });
+    const utenteEsistente = await Utente.findOne({ where: { email } });
     if (utenteEsistente) {
       res
         .status(400)
@@ -18,7 +18,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
     const sale = await bcrypt.genSalt(10);
     const passwordHash = await bcrypt.hash(password, sale);
 
-    await User.create({
+    await Utente.create({
       username,
       email,
       password: passwordHash,
@@ -31,11 +31,11 @@ export const register = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-export const login = async (req: Request, res: Response): Promise<void> => {
+export const accedi = async (req: Request, res: Response): Promise<void> => {
   try {
     const { email, password } = req.body;
 
-    const utente = await User.findOne({ where: { email } });
+    const utente = await Utente.findOne({ where: { email } });
     if (!utente) {
       res.status(404).json({ errore: "Utente non trovato." });
       return;

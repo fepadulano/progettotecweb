@@ -3,20 +3,20 @@ import cors from "cors";
 import sequelize from "./config/database";
 import "./models"; // registra le relazioni tra i modelli (vedi models/index.ts)
 
-import authRoutes from "./routes/auth.routes";
-import gameRoutes from "./routes/game.routes";
-import userRoutes from "./routes/user.routes";
-import publicGamesRoutes from "./routes/publicGames.routes";
+import rotteAutenticazione from "./routes/auth.routes";
+import rottePartita from "./routes/game.routes";
+import rotteUtenti from "./routes/user.routes";
+import rottePartiteConcluse from "./routes/publicGames.routes";
 
 const app: Application = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
-app.use("/api/auth", authRoutes);
-app.use("/api/game", gameRoutes);
-app.use("/api/users", userRoutes);
-app.use("/api/games", publicGamesRoutes);
+app.use("/api/autenticazione", rotteAutenticazione);
+app.use("/api/partita", rottePartita);
+app.use("/api/utenti", rotteUtenti);
+app.use("/api/partite-concluse", rottePartiteConcluse);
 
 app.get("/", (req: Request, res: Response) => {
   res.json({ messaggio: "Benvenuto su WikiBlank API Backend con TypeScript!" });

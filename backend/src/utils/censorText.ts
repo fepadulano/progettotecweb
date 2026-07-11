@@ -1,4 +1,4 @@
-export function censorText(
+export function censuraTesto(
   testoOriginale: string,
   paroleIndovinate: string[],
 ): string {

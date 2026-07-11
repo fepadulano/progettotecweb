@@ -34,7 +34,7 @@ export class Register {
     }
 
     this.servizioApi
-      .register({
+      .registra({
         username: this.formRegistrazione.value.username as string,
         email: this.formRegistrazione.value.email as string,
         password: this.formRegistrazione.value.password as string,

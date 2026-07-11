@@ -26,7 +26,7 @@ export class Game implements OnInit {
 
   iniziaNuovaPartita() {
     this.messaggioPartita.set('Caricamento partita in corso...');
-    this.servizioApi.startGame().subscribe({
+    this.servizioApi.avviaPartita().subscribe({
       next: (risposta) => {
         if (risposta.errore) {
           this.messaggioPartita.set(risposta.errore);
@@ -52,7 +52,7 @@ export class Game implements OnInit {
 
     const parola = this.controlloTentativo.value as string;
 
-    this.servizioApi.makeGuess(idPartita, parola, eTitolo).subscribe({
+    this.servizioApi.inviaTentativo(idPartita, parola, eTitolo).subscribe({
       next: (risposta) => {
         if (risposta.errore) {
           this.messaggioPartita.set(risposta.errore);
@@ -83,7 +83,7 @@ export class Game implements OnInit {
     const idPartita = this.idPartita();
     if (!idPartita) return;
 
-    this.servizioApi.abandonGame(idPartita).subscribe({
+    this.servizioApi.abbandonaPartita(idPartita).subscribe({
       next: (risposta) => {
         this.messaggioPartita.set(risposta.messaggio ?? 'Partita abbandonata.');
         if (risposta.testoInChiaro) {

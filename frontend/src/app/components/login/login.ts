@@ -33,7 +33,7 @@ export class LoginComponent {
     }
 
     this.servizioApi
-      .login({
+      .accedi({
         email: this.formLogin.value.email as string,
         password: this.formLogin.value.password as string,
       })

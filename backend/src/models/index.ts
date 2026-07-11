@@ -1,11 +1,11 @@
-import User from "./user";
-import GameSession from "./gameSession";
-import Guess from "./guess";
+import Utente from "./user";
+import Partita from "./gameSession";
+import Tentativo from "./guess";
 
-User.hasMany(GameSession, { foreignKey: "userId" });
-GameSession.belongsTo(User, { foreignKey: "userId" });
+Utente.hasMany(Partita, { foreignKey: "userId" });
+Partita.belongsTo(Utente, { foreignKey: "userId" });
 
-GameSession.hasMany(Guess, { foreignKey: "sessionId" });
-Guess.belongsTo(GameSession, { foreignKey: "sessionId" });
+Partita.hasMany(Tentativo, { foreignKey: "sessionId" });
+Tentativo.belongsTo(Partita, { foreignKey: "sessionId" });
 
-export { User, GameSession, Guess };
+export { Utente, Partita, Tentativo };

@@ -3,30 +3,30 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
-export interface RegisterRequest {
+export interface RichiestaRegistrazione {
   username: string;
   email: string;
   password: string;
 }
 
-export interface LoginRequest {
+export interface RichiestaLogin {
   email: string;
   password: string;
 }
 
-export interface AuthResponse {
+export interface RispostaAutenticazione {
   messaggio?: string;
   token?: string;
   errore?: string; // presente se le credenziali sono errate o se l'utente esiste già
 }
 
-export interface StartGameResponse {
+export interface RispostaAvvioPartita {
   idPartita?: number; // assente se il backend fallisce (DB o Wikipedia irraggiungibile)
   testoCensurato?: string; // assente per lo stesso motivo
   errore?: string;
 }
 
-export interface GuessResponse {
+export interface RispostaTentativo {
   vittoria: boolean;
   tipo: string; // TESTO, TITOLO, ERRORE, GIA_INDOVINATA ecc.
   messaggio: string;
@@ -37,21 +37,21 @@ export interface GuessResponse {
   errore?: string;
 }
 
-export interface LeaderboardEntry {
+export interface VoceClassifica {
   id: number;
   username: string;
   partiteVinte: number;
   tempoMedioSecondi: number;
 }
 
-export interface AbandonResponse {
+export interface RispostaAbbandono {
   messaggio?: string;
   titoloOriginale?: string;
   testoInChiaro?: string;
   errore?: string;
 }
 
-export interface CompletedGameSummary {
+export interface RiepilogoPartitaConclusa {
   id: number;
   titoloArticolo: string;
   stato: string; // WON, ABANDONED
@@ -61,7 +61,7 @@ export interface CompletedGameSummary {
   giocataIl: string;
 }
 
-export interface CompletedGameDetail extends CompletedGameSummary {
+export interface DettaglioPartitaConclusa extends RiepilogoPartitaConclusa {
   testoCensurato: string;
 }
 
@@ -73,36 +73,36 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  register(userData: RegisterRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.baseUrl}/auth/register`, userData);
+  registra(datiUtente: RichiestaRegistrazione): Observable<RispostaAutenticazione> {
+    return this.http.post<RispostaAutenticazione>(`${this.baseUrl}/autenticazione/registrati`, datiUtente);
   }
 
-  login(credentials: LoginRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.baseUrl}/auth/login`, credentials);
+  accedi(credenziali: RichiestaLogin): Observable<RispostaAutenticazione> {
+    return this.http.post<RispostaAutenticazione>(`${this.baseUrl}/autenticazione/accedi`, credenziali);
   }
 
-  startGame(): Observable<StartGameResponse> {
-    return this.http.get<StartGameResponse>(`${this.baseUrl}/game/start`);
+  avviaPartita(): Observable<RispostaAvvioPartita> {
+    return this.http.get<RispostaAvvioPartita>(`${this.baseUrl}/partita/avvia`);
   }
 
-  makeGuess(sessionId: number, word: string, isTitleGuess: boolean): Observable<GuessResponse> {
-    const payload = { sessionId, word, isTitleGuess };
-    return this.http.post<GuessResponse>(`${this.baseUrl}/game/guess`, payload);
+  inviaTentativo(idPartita: number, parola: string, eTitolo: boolean): Observable<RispostaTentativo> {
+    const payload = { idPartita, parola, eTitolo };
+    return this.http.post<RispostaTentativo>(`${this.baseUrl}/partita/tentativo`, payload);
   }
 
-  abandonGame(sessionId: number): Observable<AbandonResponse> {
-    return this.http.post<AbandonResponse>(`${this.baseUrl}/game/abandon`, { sessionId });
+  abbandonaPartita(idPartita: number): Observable<RispostaAbbandono> {
+    return this.http.post<RispostaAbbandono>(`${this.baseUrl}/partita/abbandona`, { idPartita });
   }
 
-  getLeaderboard(): Observable<LeaderboardEntry[]> {
-    return this.http.get<LeaderboardEntry[]>(`${this.baseUrl}/users/leaderboard`);
+  ottieniClassifica(): Observable<VoceClassifica[]> {
+    return this.http.get<VoceClassifica[]>(`${this.baseUrl}/utenti/classifica`);
   }
 
-  getCompletedGames(): Observable<CompletedGameSummary[]> {
-    return this.http.get<CompletedGameSummary[]>(`${this.baseUrl}/games`);
+  elencaPartiteConcluse(): Observable<RiepilogoPartitaConclusa[]> {
+    return this.http.get<RiepilogoPartitaConclusa[]>(`${this.baseUrl}/partite-concluse`);
   }
 
-  getCompletedGameDetail(id: number): Observable<CompletedGameDetail> {
-    return this.http.get<CompletedGameDetail>(`${this.baseUrl}/games/${id}`);
+  ottieniDettaglioPartita(id: number): Observable<DettaglioPartitaConclusa> {
+    return this.http.get<DettaglioPartitaConclusa>(`${this.baseUrl}/partite-concluse/${id}`);
   }
 }

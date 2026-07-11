@@ -1,6 +1,6 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ApiService, CompletedGameSummary } from '../../services/api';
+import { ApiService, RiepilogoPartitaConclusa } from '../../services/api';
 
 @Component({
   selector: 'app-history',
@@ -12,12 +12,12 @@ import { ApiService, CompletedGameSummary } from '../../services/api';
 export class History implements OnInit {
   servizioApi = inject(ApiService);
 
-  partite = signal<CompletedGameSummary[]>([]);
+  partite = signal<RiepilogoPartitaConclusa[]>([]);
   caricamento = signal(true);
   messaggioErrore = signal('');
 
   ngOnInit() {
-    this.servizioApi.getCompletedGames().subscribe({
+    this.servizioApi.elencaPartiteConcluse().subscribe({
       next: (dati) => {
         this.partite.set(dati);
         this.caricamento.set(false);

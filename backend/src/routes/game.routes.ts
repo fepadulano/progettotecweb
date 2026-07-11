@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { startGame, makeGuess, abandonGame } from "../controllers/game.controller";
-import { authenticateToken } from "../middlewares/auth.middleware";
+import { avviaPartita, inviaTentativo, abbandonaPartita } from "../controllers/game.controller";
+import { autenticaToken } from "../middlewares/auth.middleware";
 
 const router = Router();
 
 // tutte protette: senza token valido non si gioca
-router.get("/start", authenticateToken, startGame);
-router.post("/guess", authenticateToken, makeGuess);
-router.post("/abandon", authenticateToken, abandonGame);
+router.get("/avvia", autenticaToken, avviaPartita);
+router.post("/tentativo", autenticaToken, inviaTentativo);
+router.post("/abbandona", autenticaToken, abbandonaPartita);
 
 export default router;

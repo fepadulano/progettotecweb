@@ -1,7 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import database from "../config/database";
 
-class User extends Model {
+class Utente extends Model {
   declare id: number;
   declare username: string;
   declare email: string;
@@ -9,7 +9,9 @@ class User extends Model {
   declare punteggioTotale: number;
 }
 
-User.init(
+// modelName/tableName restano "User"/"Users": sono il nome di registrazione
+// interno di Sequelize e la tabella fisica già esistente, non vanno toccati
+Utente.init(
   {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
     username: { type: DataTypes.STRING, allowNull: false, unique: true },
@@ -29,4 +31,4 @@ User.init(
   },
 );
 
-export default User;
+export default Utente;

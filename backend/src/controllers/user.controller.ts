@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
 import { fn, col, literal } from "sequelize";
-import { GameSession, User } from "../models";
+import { Partita, Utente } from "../models";
 
-export const getLeaderboard = async (
+export const ottieniClassifica = async (
   req: Request,
   res: Response,
 ): Promise<void> => {
   try {
     // ordiniamo per vittorie (più alto è meglio) e tempo medio (più basso è meglio)
-    const righe = await GameSession.findAll({
+    const righe = await Partita.findAll({
       where: { stato: "WON" },
       attributes: [
         "userId",
@@ -23,7 +23,7 @@ export const getLeaderboard = async (
           "tempoMedioSecondi",
         ],
       ],
-      include: [{ model: User, attributes: ["username"] }],
+      include: [{ model: Utente, attributes: ["username"] }],
       group: ["GameSession.userId", "User.id"],
       order: [
         [literal('"partiteVinte"'), "DESC"],

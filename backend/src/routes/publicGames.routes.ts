@@ -1,13 +1,13 @@
 import { Router } from "express";
 import {
-  listCompletedGames,
-  getCompletedGameDetail,
+  elencaPartiteConcluse,
+  ottieniDettaglioPartita,
 } from "../controllers/publicGames.controller";
 
 const router = Router();
 
 // nessun middleware di autenticazione qui: consultabili da chiunque
-router.get("/", listCompletedGames);
-router.get("/:id", getCompletedGameDetail);
+router.get("/", elencaPartiteConcluse);
+router.get("/:id", ottieniDettaglioPartita);
 
 export default router;

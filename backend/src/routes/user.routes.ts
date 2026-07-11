@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { getLeaderboard } from "../controllers/user.controller";
+import { ottieniClassifica } from "../controllers/user.controller";
 
 const router = Router();
 
-router.get("/leaderboard", getLeaderboard);
+router.get("/classifica", ottieniClassifica);
 
 export default router;

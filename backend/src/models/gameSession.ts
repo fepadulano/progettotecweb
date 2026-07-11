@@ -1,7 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import database from "../config/database";
 
-class GameSession extends Model {
+class Partita extends Model {
   declare id: number;
   declare titoloArticolo: string;
   declare testoArticolo: string;
@@ -17,8 +17,10 @@ class GameSession extends Model {
 
 // "field" mantiene invariato il nome della colonna fisica nel database (in
 // inglese, già esistente), mentre in tutto il resto del codice si usa il
-// nome della proprietà in italiano: nessuna migrazione, nessun dato perso
-GameSession.init(
+// nome della proprietà in italiano: nessuna migrazione, nessun dato perso.
+// modelName resta "GameSession": è il nome con cui Sequelize ha già creato
+// la tabella fisica, cambiarlo la farebbe cercare una tabella inesistente
+Partita.init(
   {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
     titoloArticolo: {
@@ -60,4 +62,4 @@ GameSession.init(
   },
 );
 
-export default GameSession;
+export default Partita;
