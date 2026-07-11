@@ -223,7 +223,7 @@ async function gestisciTentativoParola(
 export const inviaTentativo = async (req: Request, res: Response): Promise<void> => {
   try {
     const userId = idUtenteAutenticato(req);
-    const { idPartita, parola, eTitolo } = req.body;
+    const { idPartita, parola, isTitolo } = req.body;
 
     const partita = await Partita.findOne({
       where: { id: idPartita, userId },
@@ -244,7 +244,7 @@ export const inviaTentativo = async (req: Request, res: Response): Promise<void>
 
     // una parola già indovinata non conta come tentativo, altrimenti un doppio
     // click sulla stessa parola costerebbe un punto al giocatore
-    if (!eTitolo && paroleAttuali.includes(parolaNormalizzata)) {
+    if (!isTitolo && paroleAttuali.includes(parolaNormalizzata)) {
       res.status(200).json({
         vittoria: false,
         tipo: "GIA_INDOVINATA",
@@ -255,7 +255,7 @@ export const inviaTentativo = async (req: Request, res: Response): Promise<void>
 
     partita.tentativi += 1;
 
-    if (eTitolo) {
+    if (isTitolo) {
       await gestisciTentativoTitolo(res, partita, parola, parolaNormalizzata);
     } else {
       await gestisciTentativoParola(res, partita, parola, parolaNormalizzata);

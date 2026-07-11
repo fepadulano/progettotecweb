@@ -14,19 +14,19 @@ export interface RichiestaLogin {
   password: string;
 }
 
-export interface RispostaAutenticazione {
+export interface AutenticazioneResponse {
   messaggio?: string;
   token?: string;
   errore?: string; // presente se le credenziali sono errate o se l'utente esiste già
 }
 
-export interface RispostaAvvioPartita {
+export interface AvvioPartitaResponse {
   idPartita?: number; // assente se il backend fallisce (DB o Wikipedia irraggiungibile)
   testoCensurato?: string; // assente per lo stesso motivo
   errore?: string;
 }
 
-export interface RispostaTentativo {
+export interface TentativoResponse {
   vittoria: boolean;
   tipo: string; // TESTO, TITOLO, ERRORE, GIA_INDOVINATA ecc.
   messaggio: string;
@@ -44,7 +44,7 @@ export interface VoceClassifica {
   tempoMedioSecondi: number;
 }
 
-export interface RispostaAbbandono {
+export interface AbbandonoResponse {
   messaggio?: string;
   titoloOriginale?: string;
   testoInChiaro?: string;
@@ -73,25 +73,25 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  registra(datiUtente: RichiestaRegistrazione): Observable<RispostaAutenticazione> {
-    return this.http.post<RispostaAutenticazione>(`${this.baseUrl}/autenticazione/registrati`, datiUtente);
+  registra(datiUtente: RichiestaRegistrazione): Observable<AutenticazioneResponse> {
+    return this.http.post<AutenticazioneResponse>(`${this.baseUrl}/autenticazione/registrati`, datiUtente);
   }
 
-  accedi(credenziali: RichiestaLogin): Observable<RispostaAutenticazione> {
-    return this.http.post<RispostaAutenticazione>(`${this.baseUrl}/autenticazione/accedi`, credenziali);
+  login(credenziali: RichiestaLogin): Observable<AutenticazioneResponse> {
+    return this.http.post<AutenticazioneResponse>(`${this.baseUrl}/autenticazione/accedi`, credenziali);
   }
 
-  avviaPartita(): Observable<RispostaAvvioPartita> {
-    return this.http.get<RispostaAvvioPartita>(`${this.baseUrl}/partita/avvia`);
+  avviaPartita(): Observable<AvvioPartitaResponse> {
+    return this.http.get<AvvioPartitaResponse>(`${this.baseUrl}/partita/avvia`);
   }
 
-  inviaTentativo(idPartita: number, parola: string, eTitolo: boolean): Observable<RispostaTentativo> {
-    const payload = { idPartita, parola, eTitolo };
-    return this.http.post<RispostaTentativo>(`${this.baseUrl}/partita/tentativo`, payload);
+  inviaTentativo(idPartita: number, parola: string, isTitolo: boolean): Observable<TentativoResponse> {
+    const payload = { idPartita, parola, isTitolo };
+    return this.http.post<TentativoResponse>(`${this.baseUrl}/partita/tentativo`, payload);
   }
 
-  abbandonaPartita(idPartita: number): Observable<RispostaAbbandono> {
-    return this.http.post<RispostaAbbandono>(`${this.baseUrl}/partita/abbandona`, { idPartita });
+  abbandonaPartita(idPartita: number): Observable<AbbandonoResponse> {
+    return this.http.post<AbbandonoResponse>(`${this.baseUrl}/partita/abbandona`, { idPartita });
   }
 
   ottieniClassifica(): Observable<VoceClassifica[]> {

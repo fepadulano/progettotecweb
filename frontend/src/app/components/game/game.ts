@@ -46,13 +46,13 @@ export class Game implements OnInit {
     });
   }
 
-  tentativo(eTitolo: boolean) {
+  tentativo(isTitolo: boolean) {
     const idPartita = this.idPartita();
     if (this.controlloTentativo.invalid || !idPartita) return;
 
     const parola = this.controlloTentativo.value as string;
 
-    this.servizioApi.inviaTentativo(idPartita, parola, eTitolo).subscribe({
+    this.servizioApi.inviaTentativo(idPartita, parola, isTitolo).subscribe({
       next: (risposta) => {
         if (risposta.errore) {
           this.messaggioPartita.set(risposta.errore);
