@@ -5,10 +5,10 @@ import { AuthService } from './services/auth';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, RouterLink, RouterLinkActive],
-  templateUrl: './applicazione.html',
-  styleUrl: './applicazione.css'
+  templateUrl: './app.html',
+  styleUrl: './app.css'
 })
-export class Applicazione {
+export class App {
   servizioAuth = inject(AuthService);
   router = inject(Router);
 

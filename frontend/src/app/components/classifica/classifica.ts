@@ -1,6 +1,6 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
-import { ApiService, VoceClassifica } from '../../services/api';
+import { ApiService, ElementoClassifica } from '../../services/api';
 
 @Component({
   selector: 'app-classifica',
@@ -12,14 +12,14 @@ import { ApiService, VoceClassifica } from '../../services/api';
 export class Classifica implements OnInit {
   servizioApi = inject(ApiService);
 
-  voci = signal<VoceClassifica[]>([]);
+  elementi = signal<ElementoClassifica[]>([]);
   caricamento = signal(true);
   messaggioErrore = signal('');
 
   ngOnInit() {
     this.servizioApi.ottieniClassifica().subscribe({
       next: (dati) => {
-        this.voci.set(dati);
+        this.elementi.set(dati);
         this.caricamento.set(false);
       },
       error: () => {

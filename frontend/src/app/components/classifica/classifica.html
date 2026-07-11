@@ -7,13 +7,13 @@
     <p class="messaggio-stato errore">{{ messaggioErrore() }}</p>
   } @else {
     <ol class="lista-classifica">
-      @for (voce of voci(); track voce.id) {
+      @for (elemento of elementi(); track elemento.id) {
         <li>
           <span class="posizione">{{ $index + 1 }}</span>
-          <span class="username">{{ voce.username }}</span>
+          <span class="username">{{ elemento.username }}</span>
           <span class="statistiche">
-            <span class="partite-vinte">{{ voce.partiteVinte }} vittorie</span>
-            <span class="tempo-medio">{{ voce.tempoMedioSecondi | number: '1.0-0' }}s in media</span>
+            <span class="partite-vinte">{{ elemento.partiteVinte }} vittorie</span>
+            <span class="tempo-medio">{{ elemento.tempoMedioSecondi | number: '1.0-0' }}s in media</span>
           </span>
         </li>
       } @empty {

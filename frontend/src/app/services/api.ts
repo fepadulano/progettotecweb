@@ -37,7 +37,7 @@ export interface TentativoResponse {
   errore?: string;
 }
 
-export interface VoceClassifica {
+export interface ElementoClassifica {
   id: number;
   username: string;
   partiteVinte: number;
@@ -94,8 +94,8 @@ export class ApiService {
     return this.http.post<AbbandonoResponse>(`${this.baseUrl}/partita/abbandona`, { idPartita });
   }
 
-  ottieniClassifica(): Observable<VoceClassifica[]> {
-    return this.http.get<VoceClassifica[]>(`${this.baseUrl}/utenti/classifica`);
+  ottieniClassifica(): Observable<ElementoClassifica[]> {
+    return this.http.get<ElementoClassifica[]>(`${this.baseUrl}/utenti/classifica`);
   }
 
   elencaPartiteConcluse(): Observable<RiepilogoPartitaConclusa[]> {
