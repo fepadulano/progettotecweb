@@ -1,46 +1,54 @@
 import { Request, Response } from "express";
-import { fn, col, literal } from "sequelize";
 import { Partita, Utente } from "../models";
 
-export const ottieniClassifica = async (
-  req: Request,
-  res: Response,
-): Promise<void> => {
+type StatisticheUtente = {
+  username: string;
+  vittorie: number;
+  tempoTotaleSecondi: number;
+};
+
+export const classifica = async (req: Request, res: Response): Promise<void> => {
   try {
-    // ordiniamo per vittorie (più alto è meglio) e tempo medio (più basso è meglio)
-    const righe = await Partita.findAll({
+    const partiteVinte = await Partita.findAll({
       where: { stato: "WON" },
-      attributes: [
-        "userId",
-        [fn("COUNT", col("GameSession.id")), "partiteVinte"],
-        [
-          fn(
-            "AVG",
-            literal(
-              `EXTRACT(EPOCH FROM ("GameSession"."updatedAt" - "GameSession"."createdAt"))`,
-            ),
-          ),
-          "tempoMedioSecondi",
-        ],
-      ],
       include: [{ model: Utente, attributes: ["username"] }],
-      group: ["GameSession.userId", "User.id"],
-      order: [
-        [literal('"partiteVinte"'), "DESC"],
-        [literal('"tempoMedioSecondi"'), "ASC"],
-      ],
-      limit: 10,
-      raw: true,
     });
 
-    const classifica = (righe as any[]).map((riga) => ({
-      id: riga.userId,
-      username: riga["User.username"],
-      partiteVinte: parseInt(riga.partiteVinte, 10),
-      tempoMedioSecondi: parseFloat(riga.tempoMedioSecondi),
-    }));
+    // raggruppiamo le partite vinte per utente, contando le vittorie e
+    // sommando il tempo impiegato, invece di farlo fare al database
+    const statistiche = new Map<number, StatisticheUtente>();
 
-    res.status(200).json(classifica);
+    for (const partita of partiteVinte) {
+      const username = (partita as any).User?.username ?? "Anonimo";
+      const tempoImpiegato =
+        (partita.updatedAt.getTime() - partita.createdAt.getTime()) / 1000;
+
+      const attuali = statistiche.get(partita.userId) ?? {
+        username,
+        vittorie: 0,
+        tempoTotaleSecondi: 0,
+      };
+
+      attuali.vittorie += 1;
+      attuali.tempoTotaleSecondi += tempoImpiegato;
+      statistiche.set(partita.userId, attuali);
+    }
+
+    // vittorie più alte prima, a parità vince il tempo medio più basso
+    const risultato = Array.from(statistiche.entries())
+      .map(([id, s]) => ({
+        id,
+        username: s.username,
+        partiteVinte: s.vittorie,
+        tempoMedioSecondi: s.tempoTotaleSecondi / s.vittorie,
+      }))
+      .sort(
+        (a, b) =>
+          b.partiteVinte - a.partiteVinte || a.tempoMedioSecondi - b.tempoMedioSecondi,
+      )
+      .slice(0, 10);
+
+    res.status(200).json(risultato);
   } catch (error) {
     console.error(error);
     res

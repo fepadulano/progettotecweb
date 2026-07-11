@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { ottieniClassifica } from "../controllers/user.controller";
+import { classifica } from "../controllers/user.controller";
 
 const router = Router();
 
-router.get("/classifica", ottieniClassifica);
+router.get("/classifica", classifica);
 
 export default router;
