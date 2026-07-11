@@ -9,7 +9,7 @@ import { ApiService, VoceClassifica } from '../../services/api';
   templateUrl: './leaderboard.html',
   styleUrl: './leaderboard.css',
 })
-export class Leaderboard implements OnInit {
+export class Classifica implements OnInit {
   servizioApi = inject(ApiService);
 
   voci = signal<VoceClassifica[]>([]);

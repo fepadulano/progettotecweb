@@ -23,11 +23,11 @@ function haMarkupGrezzo(testo: string): boolean {
 function accorciaTesto(testo: string, lunghezzaMassima: number): string {
   if (testo.length <= lunghezzaMassima) return testo;
 
-  const taglio = testo.slice(0, lunghezzaMassima);
-  const ultimoPunto = taglio.lastIndexOf(".");
+  const testoTagliato = testo.slice(0, lunghezzaMassima);
+  const ultimoPunto = testoTagliato.lastIndexOf(".");
   return ultimoPunto > LUNGHEZZA_MINIMA_ARTICOLO
-    ? taglio.slice(0, ultimoPunto + 1)
-    : taglio;
+    ? testoTagliato.slice(0, ultimoPunto + 1)
+    : testoTagliato;
 }
 
 // riprova finché l'articolo non è abbastanza lungo e il testo non contiene
@@ -65,14 +65,20 @@ async function recuperaArticoloCasuale(): Promise<{
       testo.length >= LUNGHEZZA_MINIMA_ARTICOLO &&
       !haMarkupGrezzo(testo)
     ) {
-      return { titolo, testo: accorciaTesto(testo, LUNGHEZZA_MASSIMA_ARTICOLO) };
+      return {
+        titolo,
+        testo: accorciaTesto(testo, LUNGHEZZA_MASSIMA_ARTICOLO),
+      };
     }
   }
 
   return null;
 }
 
-export const avviaPartita = async (req: Request, res: Response): Promise<void> => {
+export const avviaPartita = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
   try {
     const userId = idUtenteAutenticato(req);
 
@@ -220,7 +226,10 @@ async function gestisciTentativoParola(
   });
 }
 
-export const inviaTentativo = async (req: Request, res: Response): Promise<void> => {
+export const inviaTentativo = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
   try {
     const userId = idUtenteAutenticato(req);
     const { idPartita, parola, isTitolo } = req.body;

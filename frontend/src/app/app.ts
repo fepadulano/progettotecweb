@@ -8,7 +8,7 @@ import { AuthService } from './services/auth';
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App {
+export class Applicazione {
   servizioAuth = inject(AuthService);
   router = inject(Router);
 

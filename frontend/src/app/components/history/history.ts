@@ -9,7 +9,7 @@ import { ApiService, RiepilogoPartitaConclusa } from '../../services/api';
   templateUrl: './history.html',
   styleUrl: './history.css',
 })
-export class History implements OnInit {
+export class Storico implements OnInit {
   servizioApi = inject(ApiService);
 
   partite = signal<RiepilogoPartitaConclusa[]>([]);
