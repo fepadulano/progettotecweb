@@ -1,12 +1,6 @@
 import { Request, Response } from "express";
 import { Partita, Utente } from "../models";
 
-type StatisticheUtente = {
-  username: string;
-  vittorie: number;
-  tempoTotaleSecondi: number;
-};
-
 export const classifica = async (req: Request, res: Response): Promise<void> => {
   try {
     const partiteVinte = await Partita.findAll({
@@ -14,30 +8,34 @@ export const classifica = async (req: Request, res: Response): Promise<void> => 
       include: [{ model: Utente, attributes: ["username"] }],
     });
 
-    // raggruppiamo le partite vinte per utente, contando le vittorie e
-    // sommando il tempo impiegato, invece di farlo fare al database
-    const statistiche = new Map<number, StatisticheUtente>();
+    // raggruppiamo le partite vinte per utente in un semplice oggetto,
+    // usando l'id utente come chiave, invece di farlo fare al database
+    const perUtente: Record<
+      number,
+      { username: string; vittorie: number; tempoTotaleSecondi: number }
+    > = {};
 
     for (const partita of partiteVinte) {
-      const username = (partita as any).User?.username ?? "Anonimo";
+      const id = partita.userId;
       const tempoImpiegato =
         (partita.updatedAt.getTime() - partita.createdAt.getTime()) / 1000;
 
-      const attuali = statistiche.get(partita.userId) ?? {
-        username,
-        vittorie: 0,
-        tempoTotaleSecondi: 0,
-      };
+      if (!perUtente[id]) {
+        perUtente[id] = {
+          username: (partita as any).User?.username ?? "Anonimo",
+          vittorie: 0,
+          tempoTotaleSecondi: 0,
+        };
+      }
 
-      attuali.vittorie += 1;
-      attuali.tempoTotaleSecondi += tempoImpiegato;
-      statistiche.set(partita.userId, attuali);
+      perUtente[id].vittorie += 1;
+      perUtente[id].tempoTotaleSecondi += tempoImpiegato;
     }
 
     // vittorie più alte prima, a parità vince il tempo medio più basso
-    const risultato = Array.from(statistiche.entries())
+    const risultato = Object.entries(perUtente)
       .map(([id, s]) => ({
-        id,
+        id: Number(id),
         username: s.username,
         partiteVinte: s.vittorie,
         tempoMedioSecondi: s.tempoTotaleSecondi / s.vittorie,
