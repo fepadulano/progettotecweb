@@ -1,17 +1,17 @@
-<div class="history-container">
+<div class="contenitore-storico">
   <h2>Storico Partite</h2>
 
   @if (caricamento()) {
-    <p class="status-message">Caricamento in corso...</p>
+    <p class="messaggio-stato">Caricamento in corso...</p>
   } @else if (messaggioErrore()) {
-    <p class="status-message error">{{ messaggioErrore() }}</p>
+    <p class="messaggio-stato errore">{{ messaggioErrore() }}</p>
   } @else {
-    <ul class="history-list">
+    <ul class="lista-storico">
       @for (partita of partite(); track partita.id) {
         <li>
           <a [routerLink]="['/storico', partita.id]">
-            <span class="title">{{ partita.titoloArticolo }}</span>
-            <span class="status" [class.won]="partita.stato === 'WON'">
+            <span class="titolo">{{ partita.titoloArticolo }}</span>
+            <span class="stato" [class.vinta]="partita.stato === 'WON'">
               {{ partita.stato === 'WON' ? 'Vinta' : 'Abbandonata' }}
             </span>
             <span class="meta">
@@ -20,7 +20,7 @@
           </a>
         </li>
       } @empty {
-        <li class="empty">Nessuna partita conclusa ancora.</li>
+        <li class="vuoto">Nessuna partita conclusa ancora.</li>
       }
     </ul>
   }

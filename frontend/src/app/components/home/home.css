@@ -1,14 +1,14 @@
-.hero {
+.vetrina {
   padding: 76px 24px 96px;
   text-align: center;
 }
 
-.hero-content {
+.vetrina-contenuto {
   max-width: 640px;
   margin: 0 auto;
 }
 
-.eyebrow {
+.occhiello {
   display: inline-block;
   padding: 4px 12px;
   border: 1px solid var(--color-primary);
@@ -26,7 +26,7 @@ h1 {
   margin: 0 0 18px;
 }
 
-.description {
+.descrizione {
   font-family: var(--font-serif);
   font-size: 18px;
   line-height: 1.7;
@@ -34,13 +34,13 @@ h1 {
   margin: 0 0 30px;
 }
 
-.welcome-back {
+.bentornato {
   font-family: var(--font-serif);
   font-size: 18px;
   margin-bottom: 18px;
 }
 
-.cta-group {
+.gruppo-cta {
   display: flex;
   gap: 14px;
   justify-content: center;
@@ -48,8 +48,8 @@ h1 {
   flex-wrap: wrap;
 }
 
-.btn-hero-primary,
-.btn-hero-secondary {
+.btn-vetrina-primario,
+.btn-vetrina-secondario {
   display: inline-block;
   padding: 13px 30px;
   border-radius: var(--radius-sm);
@@ -63,22 +63,22 @@ h1 {
     background-color 0.2s ease;
 }
 
-.btn-hero-primary {
+.btn-vetrina-primario {
   background-color: var(--color-primary);
   color: #f2ede2;
   border: 1px solid var(--color-primary);
 }
-.btn-hero-primary:hover {
+.btn-vetrina-primario:hover {
   background-color: var(--color-primary-dark);
   transform: translateY(-1px);
 }
 
-.btn-hero-secondary {
+.btn-vetrina-secondario {
   background-color: transparent;
   color: var(--text-primary);
   border: 1px solid var(--text-primary);
 }
-.btn-hero-secondary:hover {
+.btn-vetrina-secondario:hover {
   background-color: var(--text-primary);
   color: var(--bg-page);
   transform: translateY(-1px);

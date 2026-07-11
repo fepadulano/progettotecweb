@@ -1,4 +1,4 @@
-<div class="login-container">
+<div class="contenitore-login">
   <h2>Accedi al Gioco</h2>
 
   <form [formGroup]="formLogin" (ngSubmit)="accedi()">
@@ -8,14 +8,14 @@
         type="email"
         id="email"
         formControlName="email"
-        [class.invalid]="inviato() && formLogin.controls.email.invalid"
+        [class.non-valido]="inviato() && formLogin.controls.email.invalid"
       />
       @if (inviato() && formLogin.controls.email.errors) {
         @if (formLogin.controls.email.errors['required']) {
-          <p class="error">L'email è obbligatoria.</p>
+          <p class="errore">L'email è obbligatoria.</p>
         }
         @if (formLogin.controls.email.errors['email']) {
-          <p class="error">Inserisci un'email valida.</p>
+          <p class="errore">Inserisci un'email valida.</p>
         }
       }
     </div>
@@ -26,25 +26,25 @@
         type="password"
         id="password"
         formControlName="password"
-        [class.invalid]="inviato() && formLogin.controls.password.invalid"
+        [class.non-valido]="inviato() && formLogin.controls.password.invalid"
       />
 
       @if (inviato() && formLogin.controls.password.errors) {
         @if (formLogin.controls.password.errors['required']) {
-          <p class="error">La password è obbligatoria.</p>
+          <p class="errore">La password è obbligatoria.</p>
         }
         @if (formLogin.controls.password.errors['minlength']) {
-          <p class="error">La password deve avere almeno 4 caratteri.</p>
+          <p class="errore">La password deve avere almeno 4 caratteri.</p>
         }
       }
     </div>
 
     @if (messaggioErrore()) {
-      <p class="error backend-error"><strong>Attenzione:</strong> {{ messaggioErrore() }}</p>
+      <p class="errore errore-backend"><strong>Attenzione:</strong> {{ messaggioErrore() }}</p>
     }
 
     <button type="submit">Entra</button>
   </form>
 
-  <p class="toggle-link">Non hai un account? <a routerLink="/register">Registrati qui</a></p>
+  <p class="link-alterna">Non hai un account? <a routerLink="/register">Registrati qui</a></p>
 </div>

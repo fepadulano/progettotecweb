@@ -1,4 +1,4 @@
-.history-container {
+.contenitore-storico {
   max-width: 640px;
   margin: 50px auto;
   padding: 32px;
@@ -14,33 +14,33 @@ h2 {
   font-size: 22px;
 }
 
-.status-message {
+.messaggio-stato {
   text-align: center;
   color: var(--text-secondary);
 }
-.status-message.error {
+.messaggio-stato.errore {
   color: var(--color-danger);
 }
 
-.history-list {
+.lista-storico {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.history-list li {
+.lista-storico li {
   border-bottom: 1px solid var(--border-color);
 }
-.history-list li:last-child {
+.lista-storico li:last-child {
   border-bottom: none;
 }
-.history-list li.empty {
+.lista-storico li.vuoto {
   text-align: center;
   color: var(--text-secondary);
   padding: 20px 0;
 }
 
-.history-list a {
+.lista-storico a {
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -49,17 +49,17 @@ h2 {
   color: inherit;
   transition: background-color 0.15s ease;
 }
-.history-list a:hover {
+.lista-storico a:hover {
   background-color: var(--bg-page);
 }
 
-.title {
+.titolo {
   font-family: var(--font-serif);
   font-weight: 700;
   color: var(--text-primary);
 }
 
-.status {
+.stato {
   align-self: flex-start;
   font-size: 11px;
   font-weight: 700;
@@ -69,7 +69,7 @@ h2 {
   border: 1px solid var(--color-danger);
   color: var(--color-danger-dark);
 }
-.status.won {
+.stato.vinta {
   border-color: var(--color-success);
   color: var(--color-success-dark);
 }

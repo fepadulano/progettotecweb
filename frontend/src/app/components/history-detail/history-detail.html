@@ -1,22 +1,22 @@
-<div class="detail-container">
-  <a class="back-link" routerLink="/storico">&larr; Torna allo storico</a>
+<div class="contenitore-dettaglio">
+  <a class="link-indietro" routerLink="/storico">&larr; Torna allo storico</a>
 
   @if (caricamento()) {
-    <p class="status-message">Caricamento in corso...</p>
+    <p class="messaggio-stato">Caricamento in corso...</p>
   } @else if (messaggioErrore()) {
-    <p class="status-message error">{{ messaggioErrore() }}</p>
+    <p class="messaggio-stato errore">{{ messaggioErrore() }}</p>
   } @else {
     @if (partita(); as p) {
       <h2>{{ p.titoloArticolo }}</h2>
       <p class="meta">
-        <span class="status" [class.won]="p.stato === 'WON'">
+        <span class="stato" [class.vinta]="p.stato === 'WON'">
           {{ p.stato === 'WON' ? 'Vinta' : 'Abbandonata' }}
         </span>
         · {{ p.tentativi }} tentativi
         · {{ p.durataSecondi | number: '1.0-0' }}s impiegati
         · giocata da {{ p.username ?? 'Anonimo' }}
       </p>
-      <div class="article-text">{{ p.testoCensurato }}</div>
+      <div class="testo-articolo">{{ p.testoCensurato }}</div>
     }
   }
 </div>

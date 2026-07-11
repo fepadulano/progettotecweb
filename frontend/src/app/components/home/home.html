@@ -1,20 +1,20 @@
-<section class="hero">
-  <div class="hero-content">
-    <span class="eyebrow">Il gioco dell'impiccato di Wikipedia</span>
+<section class="vetrina">
+  <div class="vetrina-contenuto">
+    <span class="occhiello">Il gioco dell'impiccato di Wikipedia</span>
     <h1>WikiBlank</h1>
-    <p class="description">
+    <p class="descrizione">
       Ad ogni partita il sistema seleziona casualmente un articolo enciclopedico e ne oscura
       il testo. Indovina le parole per svelarne il contenuto oppure prova a indovinare
       direttamente il titolo dell'articolo!
     </p>
 
     @if (servizioAuth.isAuthenticated()) {
-      <p class="welcome-back">Bentornato, <strong>{{ servizioAuth.user() }}</strong>!</p>
-      <a class="btn-hero-primary" routerLink="/game">Inizia una partita</a>
+      <p class="bentornato">Bentornato, <strong>{{ servizioAuth.user() }}</strong>!</p>
+      <a class="btn-vetrina-primario" routerLink="/game">Inizia una partita</a>
     } @else {
-      <div class="cta-group">
-        <a class="btn-hero-primary" routerLink="/login">Accedi</a>
-        <a class="btn-hero-secondary" routerLink="/register">Registrati</a>
+      <div class="gruppo-cta">
+        <a class="btn-vetrina-primario" routerLink="/login">Accedi</a>
+        <a class="btn-vetrina-secondario" routerLink="/register">Registrati</a>
       </div>
     }
 

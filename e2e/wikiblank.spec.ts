@@ -23,7 +23,7 @@ async function registerAndLogin(
 
   // aspetta che la partita abbia finito di caricare: sotto carico (più test
   // in parallelo che chiamano Wikipedia insieme) può volerci un po'
-  await expect(page.locator(".guess-input")).toBeVisible({ timeout: 30000 });
+  await expect(page.locator(".input-tentativo")).toBeVisible({ timeout: 30000 });
 
   return { email, password };
 }
@@ -34,7 +34,7 @@ test.describe("senza autenticazione", () => {
   }) => {
     await page.goto("/home");
 
-    const hero = page.locator(".hero-content");
+    const hero = page.locator(".vetrina-contenuto");
     await expect(hero.getByRole("link", { name: "Accedi" })).toBeVisible();
     await expect(hero.getByRole("link", { name: "Registrati" })).toBeVisible();
   });
@@ -103,7 +103,7 @@ test.describe("partita (utente autenticato)", () => {
   });
 
   test("mostra un articolo vero e censurato", async ({ page }) => {
-    await expect(page.locator(".wiki-text")).toContainText("_", {
+    await expect(page.locator(".testo-wiki")).toContainText("_", {
       timeout: 20000,
     });
   });
@@ -112,32 +112,32 @@ test.describe("partita (utente autenticato)", () => {
     page,
   }) => {
     // "di" è tra le parole più comuni
-    await page.locator(".guess-input").fill("di");
+    await page.locator(".input-tentativo").fill("di");
     await page.getByRole("button", { name: "Indovina Parola" }).click();
 
-    await expect(page.locator(".message")).toContainText("compare");
+    await expect(page.locator(".messaggio")).toContainText("compare");
   });
 
   test("ritentare una parola già indovinata non consuma un altro tentativo", async ({
     page,
   }) => {
-    await page.locator(".guess-input").fill("di");
+    await page.locator(".input-tentativo").fill("di");
     await page.getByRole("button", { name: "Indovina Parola" }).click();
-    await expect(page.locator(".message")).toContainText("compare");
+    await expect(page.locator(".messaggio")).toContainText("compare");
 
-    await page.locator(".guess-input").fill("di");
+    await page.locator(".input-tentativo").fill("di");
     await page.getByRole("button", { name: "Indovina Parola" }).click();
 
-    await expect(page.locator(".message")).toContainText("già svelato");
+    await expect(page.locator(".messaggio")).toContainText("già svelato");
   });
 
   test("una parola inventata viene segnalata come assente", async ({
     page,
   }) => {
-    await page.locator(".guess-input").fill("xyzquantumblorpxyz");
+    await page.locator(".input-tentativo").fill("xyzquantumblorpxyz");
     await page.getByRole("button", { name: "Indovina Parola" }).click();
 
-    await expect(page.locator(".message")).toContainText("non è presente");
+    await expect(page.locator(".messaggio")).toContainText("non è presente");
   });
 
   test("abbandonare svela il testo originale", async ({ page }) => {
@@ -146,6 +146,6 @@ test.describe("partita (utente autenticato)", () => {
     await expect(
       page.getByRole("button", { name: "Gioca un'altra partita" }),
     ).toBeVisible();
-    await expect(page.locator(".wiki-text")).not.toContainText("_");
+    await expect(page.locator(".testo-wiki")).not.toContainText("_");
   });
 });

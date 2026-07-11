@@ -1,30 +1,30 @@
-<div class="game-container">
-  <div class="status-panel">
-    <p class="message" [class.victory]="vittoria()">{{ messaggioPartita() }}</p>
+<div class="contenitore-partita">
+  <div class="pannello-stato">
+    <p class="messaggio" [class.vittoria]="vittoria()">{{ messaggioPartita() }}</p>
 
     @if (partitaConclusa()) {
-      <button class="btn-restart" (click)="iniziaNuovaPartita()">Gioca un'altra partita</button>
+      <button class="btn-ricomincia" (click)="iniziaNuovaPartita()">Gioca un'altra partita</button>
     }
   </div>
 
   @if (idPartita() && !partitaConclusa()) {
-    <div class="controls-panel">
+    <div class="pannello-controlli">
       <input
         type="text"
-        class="guess-input"
+        class="input-tentativo"
         [formControl]="controlloTentativo"
         placeholder="Scrivi una parola o il titolo..."
         (keyup.enter)="tentativo(false)"
       />
-      <div class="controls-buttons">
-        <button class="btn-guess" (click)="tentativo(false)">Indovina Parola</button>
-        <button class="btn-title" (click)="tentativo(true)">Tenta il Titolo!</button>
-        <button class="btn-abandon" (click)="abbandona()">Abbandona</button>
+      <div class="pulsanti-controlli">
+        <button class="btn-tentativo" (click)="tentativo(false)">Indovina Parola</button>
+        <button class="btn-titolo" (click)="tentativo(true)">Tenta il Titolo!</button>
+        <button class="btn-abbandona" (click)="abbandona()">Abbandona</button>
       </div>
     </div>
   }
 
-  <div class="article-container">
-    <p class="wiki-text">{{ testoCensurato() }}</p>
+  <div class="contenitore-articolo">
+    <p class="testo-wiki">{{ testoCensurato() }}</p>
   </div>
 </div>

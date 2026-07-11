@@ -1,4 +1,4 @@
-<div class="login-container">
+<div class="contenitore-login">
   <h2>Crea un Account</h2>
 
   <form [formGroup]="formRegistrazione" (ngSubmit)="registrati()">
@@ -8,15 +8,15 @@
         type="text"
         id="username"
         formControlName="username"
-        [class.invalid]="inviato() && formRegistrazione.controls.username.invalid"
+        [class.non-valido]="inviato() && formRegistrazione.controls.username.invalid"
       />
 
       @if (inviato() && formRegistrazione.controls.username.errors) {
         @if (formRegistrazione.controls.username.errors['required']) {
-          <p class="error">Lo username è obbligatorio.</p>
+          <p class="errore">Lo username è obbligatorio.</p>
         }
         @if (formRegistrazione.controls.username.errors['minlength']) {
-          <p class="error">Lo username deve avere almeno 3 caratteri.</p>
+          <p class="errore">Lo username deve avere almeno 3 caratteri.</p>
         }
       }
     </div>
@@ -27,15 +27,15 @@
         type="email"
         id="email"
         formControlName="email"
-        [class.invalid]="inviato() && formRegistrazione.controls.email.invalid"
+        [class.non-valido]="inviato() && formRegistrazione.controls.email.invalid"
       />
 
       @if (inviato() && formRegistrazione.controls.email.errors) {
         @if (formRegistrazione.controls.email.errors['required']) {
-          <p class="error">L'email è obbligatoria.</p>
+          <p class="errore">L'email è obbligatoria.</p>
         }
         @if (formRegistrazione.controls.email.errors['email']) {
-          <p class="error">Inserisci un'email valida.</p>
+          <p class="errore">Inserisci un'email valida.</p>
         }
       }
     </div>
@@ -46,25 +46,25 @@
         type="password"
         id="password"
         formControlName="password"
-        [class.invalid]="inviato() && formRegistrazione.controls.password.invalid"
+        [class.non-valido]="inviato() && formRegistrazione.controls.password.invalid"
       />
 
       @if (inviato() && formRegistrazione.controls.password.errors) {
         @if (formRegistrazione.controls.password.errors['required']) {
-          <p class="error">La password è obbligatoria.</p>
+          <p class="errore">La password è obbligatoria.</p>
         }
         @if (formRegistrazione.controls.password.errors['minlength']) {
-          <p class="error">La password deve avere almeno 4 caratteri.</p>
+          <p class="errore">La password deve avere almeno 4 caratteri.</p>
         }
       }
     </div>
 
     @if (messaggioErrore()) {
-      <p class="error backend-error"><strong>Attenzione:</strong> {{ messaggioErrore() }}</p>
+      <p class="errore errore-backend"><strong>Attenzione:</strong> {{ messaggioErrore() }}</p>
     }
 
     @if (messaggioSuccesso()) {
-      <div class="success-banner">
+      <div class="banner-successo">
         🎉 <strong>{{ messaggioSuccesso() }}</strong>
       </div>
     }
@@ -72,5 +72,5 @@
     <button type="submit">Registrati</button>
   </form>
 
-  <p class="toggle-link">Hai già un account? <a routerLink="/login">Accedi qui</a></p>
+  <p class="link-alterna">Hai già un account? <a routerLink="/login">Accedi qui</a></p>
 </div>

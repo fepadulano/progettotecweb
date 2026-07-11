@@ -1,4 +1,4 @@
-.leaderboard-container {
+.contenitore-classifica {
   max-width: 520px;
   margin: 50px auto;
   padding: 32px;
@@ -14,38 +14,38 @@ h2 {
   font-size: 22px;
 }
 
-.status-message {
+.messaggio-stato {
   text-align: center;
   color: var(--text-secondary);
 }
-.status-message.error {
+.messaggio-stato.errore {
   color: var(--color-danger);
 }
 
-.leaderboard-list {
+.lista-classifica {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.leaderboard-list li {
+.lista-classifica li {
   display: flex;
   align-items: center;
   gap: 16px;
   padding: 12px 8px;
   border-bottom: 1px solid var(--border-color);
 }
-.leaderboard-list li:last-child {
+.lista-classifica li:last-child {
   border-bottom: none;
 }
 
-.leaderboard-list li.empty {
+.lista-classifica li.vuoto {
   justify-content: center;
   color: var(--text-secondary);
   padding: 20px 0;
 }
 
-.rank {
+.posizione {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -64,18 +64,18 @@ h2 {
   color: var(--text-primary);
 }
 
-.stats {
+.statistiche {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   font-size: 13px;
 }
 
-.games-won {
+.partite-vinte {
   font-weight: 700;
   color: var(--color-success-dark);
 }
 
-.avg-time {
+.tempo-medio {
   color: var(--text-secondary);
 }

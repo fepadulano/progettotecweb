@@ -1,15 +1,15 @@
-.game-container {
+.contenitore-partita {
   max-width: 820px;
   margin: 40px auto;
   padding: 0 20px;
 }
 
-.status-panel {
+.pannello-stato {
   text-align: center;
   margin-bottom: 24px;
 }
 
-.message {
+.messaggio {
   display: inline-block;
   font-family: var(--font-serif);
   font-size: 17px;
@@ -20,14 +20,14 @@
   padding: 12px 22px;
 }
 
-.message.victory {
+.messaggio.vittoria {
   color: var(--color-success-dark);
   background-color: var(--color-success-bg);
   border-color: var(--color-success);
   font-size: 20px;
 }
 
-.btn-restart {
+.btn-ricomincia {
   display: block;
   margin: 16px auto 0;
   padding: 11px 24px;
@@ -42,19 +42,19 @@
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
-.btn-restart:hover {
+.btn-ricomincia:hover {
   background-color: var(--color-success-dark);
   border-color: var(--color-success-dark);
 }
 
-.controls-panel {
+.pannello-controlli {
   display: flex;
   flex-direction: column;
   gap: 12px;
   margin-bottom: 28px;
 }
 
-.guess-input {
+.input-tentativo {
   width: 100%;
   padding: 13px 16px;
   font-family: var(--font-serif);
@@ -67,20 +67,20 @@
     border-color 0.2s ease,
     box-shadow 0.2s ease;
 }
-.guess-input:focus {
+.input-tentativo:focus {
   outline: none;
   border-color: var(--color-primary);
   box-shadow: 0 0 0 3px var(--color-primary-bg);
 }
 
-.controls-buttons {
+.pulsanti-controlli {
   display: flex;
   gap: 10px;
   justify-content: center;
   flex-wrap: wrap;
 }
 
-.controls-buttons button {
+.pulsanti-controlli button {
   padding: 11px 18px;
   border-radius: var(--radius-sm);
   cursor: pointer;
@@ -92,40 +92,40 @@
     background-color 0.2s ease,
     transform 0.1s ease;
 }
-.controls-buttons button:active {
+.pulsanti-controlli button:active {
   transform: translateY(1px);
 }
 
-.btn-guess {
+.btn-tentativo {
   background-color: var(--color-primary);
   color: #f2ede2;
   border: 1px solid var(--color-primary);
 }
-.btn-guess:hover {
+.btn-tentativo:hover {
   background-color: var(--color-primary-dark);
 }
 
-.btn-title {
+.btn-titolo {
   background-color: transparent;
   color: var(--color-warning);
   border: 1px solid var(--color-warning);
 }
-.btn-title:hover {
+.btn-titolo:hover {
   background-color: var(--color-warning-bg);
 }
 
-.btn-abandon {
+.btn-abbandona {
   background-color: transparent;
   color: var(--color-neutral-dark);
   border: 1px solid var(--border-color) !important;
 }
-.btn-abandon:hover {
+.btn-abbandona:hover {
   background-color: var(--color-danger-bg);
   color: var(--color-danger-dark);
   border-color: var(--color-danger-bg) !important;
 }
 
-.article-container {
+.contenitore-articolo {
   background-color: var(--bg-surface);
   border: 1px solid var(--border-color);
   box-shadow: var(--shadow-md);
@@ -134,7 +134,7 @@
   position: relative;
 }
 
-.article-container::before {
+.contenitore-articolo::before {
   content: 'ARTICOLO';
   position: absolute;
   top: -10px;
@@ -148,7 +148,7 @@
   color: var(--color-neutral);
 }
 
-.wiki-text {
+.testo-wiki {
   font-family: var(--font-serif);
   line-height: 1.9;
   font-size: 17px;

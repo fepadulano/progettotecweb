@@ -1,4 +1,4 @@
-.login-container {
+.contenitore-login {
   max-width: 400px;
   margin: 60px auto;
   padding: 36px;
@@ -48,7 +48,7 @@
       box-shadow: 0 0 0 3px var(--color-primary-bg);
     }
 
-    &.invalid {
+    &.non-valido {
       border-color: var(--color-danger);
     }
   }
@@ -78,33 +78,33 @@
     }
   }
 
-  .error {
+  .errore {
     color: var(--color-danger);
     font-size: 13px;
     margin-top: 6px;
     margin-bottom: 0;
   }
 
-  .backend-error {
+  .errore-backend {
     background-color: var(--color-danger-bg);
     border: 1px solid var(--color-danger);
     padding: 10px 12px;
     text-align: center;
   }
 
-  .toggle-link {
+  .link-alterna {
     text-align: center;
     margin-top: 20px;
     margin-bottom: 0;
     font-size: 14px;
     color: var(--text-secondary);
   }
-  .toggle-link a {
+  .link-alterna a {
     color: var(--color-primary-dark);
     text-decoration: none;
     font-weight: 700;
   }
-  .toggle-link a:hover {
+  .link-alterna a:hover {
     text-decoration: underline;
   }
 }

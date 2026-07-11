@@ -1,4 +1,4 @@
-.main-nav {
+.nav-principale {
   position: sticky;
   top: 0;
   z-index: 10;
@@ -10,7 +10,7 @@
   border-bottom: 3px solid var(--color-primary);
 }
 
-.brand {
+.marchio {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -23,7 +23,7 @@
   white-space: nowrap;
 }
 
-.brand-mark {
+.simbolo-marchio {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -35,23 +35,23 @@
   font-size: 13px;
 }
 
-.nav-links,
-.nav-auth {
+.link-nav,
+.nav-autenticazione {
   display: flex;
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
 }
 
-.nav-links {
+.link-nav {
   flex: 1;
 }
 
-.nav-auth {
+.nav-autenticazione {
   gap: 14px;
 }
 
-.main-nav a {
+.nav-principale a {
   color: rgba(242, 237, 226, 0.75);
   text-decoration: none;
   font-weight: 600;
@@ -65,23 +65,23 @@
     border-color 0.15s ease;
 }
 
-.main-nav a:hover {
+.nav-principale a:hover {
   color: #fff;
 }
 
-.main-nav a.active {
+.nav-principale a.attivo {
   color: #fff;
   border-bottom-color: var(--color-primary-light);
 }
 
-.nav-user {
+.utente-nav {
   color: #f2ede2;
   font-weight: 600;
   font-size: 13px;
   font-family: var(--font-serif);
 }
 
-.btn-nav-ghost {
+.btn-nav-secondario {
   padding: 6px 14px;
   background-color: transparent;
   color: #f2ede2;
@@ -96,12 +96,12 @@
     background-color 0.15s ease,
     color 0.15s ease;
 }
-.btn-nav-ghost:hover {
+.btn-nav-secondario:hover {
   background-color: #f2ede2;
   color: var(--text-primary);
 }
 
-.nav-auth a.btn-nav-solid {
+.nav-autenticazione a.btn-nav-primario {
   padding: 6px 14px;
   background-color: var(--color-primary);
   color: #f2ede2;
@@ -112,23 +112,23 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
-.nav-auth a.btn-nav-solid:hover {
+.nav-autenticazione a.btn-nav-primario:hover {
   background-color: var(--color-primary-dark);
   border-color: var(--color-primary-dark);
 }
 
-.app-content {
+.contenuto-app {
   min-height: calc(100vh - 62px);
 }
 
 @media (max-width: 720px) {
-  .main-nav {
+  .nav-principale {
     flex-wrap: wrap;
     gap: 12px;
     padding: 14px 20px;
   }
-  .nav-links,
-  .nav-auth {
+  .link-nav,
+  .nav-autenticazione {
     width: 100%;
     justify-content: center;
   }

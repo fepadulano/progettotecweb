@@ -1,31 +1,31 @@
-<nav class="main-nav">
-  <a class="brand" routerLink="/home">
-    <span class="brand-mark">W</span>
+<nav class="nav-principale">
+  <a class="marchio" routerLink="/home">
+    <span class="simbolo-marchio">W</span>
     WikiBlank
   </a>
 
-  <div class="nav-links">
-    <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+  <div class="link-nav">
+    <a routerLink="/home" routerLinkActive="attivo" [routerLinkActiveOptions]="{ exact: true }"
       >Home</a
     >
-    <a routerLink="/leaderboard" routerLinkActive="active">Classifica</a>
-    <a routerLink="/storico" routerLinkActive="active">Storico</a>
+    <a routerLink="/leaderboard" routerLinkActive="attivo">Classifica</a>
+    <a routerLink="/storico" routerLinkActive="attivo">Storico</a>
     @if (servizioAuth.isAuthenticated()) {
-      <a routerLink="/game" routerLinkActive="active">Gioca</a>
+      <a routerLink="/game" routerLinkActive="attivo">Gioca</a>
     }
   </div>
 
-  <div class="nav-auth">
+  <div class="nav-autenticazione">
     @if (servizioAuth.isAuthenticated()) {
-      <span class="nav-user">{{ servizioAuth.user() }}</span>
-      <button class="btn-nav-ghost" (click)="logout()">Esci</button>
+      <span class="utente-nav">{{ servizioAuth.user() }}</span>
+      <button class="btn-nav-secondario" (click)="logout()">Esci</button>
     } @else {
-      <a class="btn-nav-link" routerLink="/login" routerLinkActive="active">Accedi</a>
-      <a class="btn-nav-solid" routerLink="/register" routerLinkActive="active">Registrati</a>
+      <a class="btn-nav-collegamento" routerLink="/login" routerLinkActive="attivo">Accedi</a>
+      <a class="btn-nav-primario" routerLink="/register" routerLinkActive="attivo">Registrati</a>
     }
   </div>
 </nav>
 
-<main class="app-content">
+<main class="contenuto-app">
   <router-outlet></router-outlet>
 </main>
