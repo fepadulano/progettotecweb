@@ -3,25 +3,31 @@ import database from "../config/database";
 
 class Guess extends Model {
   declare id: number;
-  declare word_attempted: string;
-  declare is_correct: boolean;
+  declare parolaTentata: string;
+  declare corretta: boolean;
   declare sessionId: number;
-  declare is_title_guess: boolean;
+  declare tentativoSulTitolo: boolean;
 }
 
 Guess.init(
   {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-    word_attempted: { type: DataTypes.STRING, allowNull: false },
-    is_correct: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
+    parolaTentata: {
+      type: DataTypes.STRING,
       allowNull: false,
+      field: "word_attempted",
     },
-    is_title_guess: {
+    corretta: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
       allowNull: false,
+      field: "is_correct",
+    },
+    tentativoSulTitolo: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      allowNull: false,
+      field: "is_title_guess",
     },
   },
   {

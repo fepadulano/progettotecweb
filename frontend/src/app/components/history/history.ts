@@ -10,21 +10,21 @@ import { ApiService, CompletedGameSummary } from '../../services/api';
   styleUrl: './history.css',
 })
 export class History implements OnInit {
-  apiService = inject(ApiService);
+  servizioApi = inject(ApiService);
 
-  games = signal<CompletedGameSummary[]>([]);
-  loading = signal(true);
-  errorMessage = signal('');
+  partite = signal<CompletedGameSummary[]>([]);
+  caricamento = signal(true);
+  messaggioErrore = signal('');
 
   ngOnInit() {
-    this.apiService.getCompletedGames().subscribe({
-      next: (data) => {
-        this.games.set(data);
-        this.loading.set(false);
+    this.servizioApi.getCompletedGames().subscribe({
+      next: (dati) => {
+        this.partite.set(dati);
+        this.caricamento.set(false);
       },
       error: () => {
-        this.errorMessage.set('Impossibile caricare lo storico delle partite.');
-        this.loading.set(false);
+        this.messaggioErrore.set('Impossibile caricare lo storico delle partite.');
+        this.caricamento.set(false);
       },
     });
   }

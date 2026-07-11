@@ -1,21 +1,21 @@
 <div class="history-container">
   <h2>Storico Partite</h2>
 
-  @if (loading()) {
+  @if (caricamento()) {
     <p class="status-message">Caricamento in corso...</p>
-  } @else if (errorMessage()) {
-    <p class="status-message error">{{ errorMessage() }}</p>
+  } @else if (messaggioErrore()) {
+    <p class="status-message error">{{ messaggioErrore() }}</p>
   } @else {
     <ul class="history-list">
-      @for (game of games(); track game.id) {
+      @for (partita of partite(); track partita.id) {
         <li>
-          <a [routerLink]="['/storico', game.id]">
-            <span class="title">{{ game.titoloArticolo }}</span>
-            <span class="status" [class.won]="game.stato === 'WON'">
-              {{ game.stato === 'WON' ? 'Vinta' : 'Abbandonata' }}
+          <a [routerLink]="['/storico', partita.id]">
+            <span class="title">{{ partita.titoloArticolo }}</span>
+            <span class="status" [class.won]="partita.stato === 'WON'">
+              {{ partita.stato === 'WON' ? 'Vinta' : 'Abbandonata' }}
             </span>
             <span class="meta">
-              {{ game.tentativi }} tentativi · {{ game.username ?? 'Anonimo' }}
+              {{ partita.tentativi }} tentativi · {{ partita.username ?? 'Anonimo' }}
             </span>
           </a>
         </li>

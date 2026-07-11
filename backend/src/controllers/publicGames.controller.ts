@@ -2,10 +2,10 @@ import { Request, Response } from "express";
 import { GameSession, User } from "../models";
 import { censorText } from "../utils/censorText";
 
-const CONCLUDED_STATUSES = ["WON", "ABANDONED"];
+const STATI_CONCLUSI = ["WON", "ABANDONED"];
 
-function durationInSeconds(session: GameSession): number {
-  return (session.updatedAt.getTime() - session.createdAt.getTime()) / 1000;
+function durataInSecondi(partita: GameSession): number {
+  return (partita.updatedAt.getTime() - partita.createdAt.getTime()) / 1000;
 }
 
 export const listCompletedGames = async (
@@ -13,13 +13,13 @@ export const listCompletedGames = async (
   res: Response,
 ): Promise<void> => {
   try {
-    const sessions = await GameSession.findAll({
-      where: { status: CONCLUDED_STATUSES },
+    const partite = await GameSession.findAll({
+      where: { stato: STATI_CONCLUSI },
       attributes: [
         "id",
-        "article_title",
-        "status",
-        "attempts_count",
+        "titoloArticolo",
+        "stato",
+        "tentativi",
         "createdAt",
         "updatedAt",
       ],
@@ -27,17 +27,17 @@ export const listCompletedGames = async (
       order: [["updatedAt", "DESC"]],
     });
 
-    const result = sessions.map((session) => ({
-      id: session.id,
-      titoloArticolo: session.article_title,
-      stato: session.status,
-      tentativi: session.attempts_count,
-      durataSecondi: durationInSeconds(session),
-      username: (session as any).User?.username ?? null,
-      giocataIl: session.createdAt,
+    const risultato = partite.map((partita) => ({
+      id: partita.id,
+      titoloArticolo: partita.titoloArticolo,
+      stato: partita.stato,
+      tentativi: partita.tentativi,
+      durataSecondi: durataInSecondi(partita),
+      username: (partita as any).User?.username ?? null,
+      giocataIl: partita.createdAt,
     }));
 
-    res.status(200).json(result);
+    res.status(200).json(risultato);
   } catch (error) {
     console.error(error);
     res
@@ -53,12 +53,12 @@ export const getCompletedGameDetail = async (
   try {
     const { id } = req.params;
 
-    const session = await GameSession.findOne({
-      where: { id, status: CONCLUDED_STATUSES },
+    const partita = await GameSession.findOne({
+      where: { id, stato: STATI_CONCLUSI },
       include: [{ model: User, attributes: ["username"] }],
     });
 
-    if (!session) {
+    if (!partita) {
       res
         .status(404)
         .json({ errore: "Partita non trovata o ancora in corso." });
@@ -66,14 +66,14 @@ export const getCompletedGameDetail = async (
     }
 
     res.status(200).json({
-      id: session.id,
-      titoloArticolo: session.article_title,
-      stato: session.status,
-      testoCensurato: censorText(session.article_text, session.guessed_words),
-      tentativi: session.attempts_count,
-      durataSecondi: durationInSeconds(session),
-      username: (session as any).User?.username ?? null,
-      giocataIl: session.createdAt,
+      id: partita.id,
+      titoloArticolo: partita.titoloArticolo,
+      stato: partita.stato,
+      testoCensurato: censorText(partita.testoArticolo, partita.paroleIndovinate),
+      tentativi: partita.tentativi,
+      durataSecondi: durataInSecondi(partita),
+      username: (partita as any).User?.username ?? null,
+      giocataIl: partita.createdAt,
     });
   } catch (error) {
     console.error(error);

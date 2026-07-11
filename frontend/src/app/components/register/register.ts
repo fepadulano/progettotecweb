@@ -11,48 +11,48 @@ import { ApiService } from '../../services/api';
   styleUrl: './register.css',
 })
 export class Register {
-  apiService = inject(ApiService);
+  servizioApi = inject(ApiService);
   router = inject(Router);
 
-  submitted = signal(false);
-  errorMessage = signal('');
-  successMessage = signal('');
+  inviato = signal(false);
+  messaggioErrore = signal('');
+  messaggioSuccesso = signal('');
 
-  registerForm = new FormGroup({
+  formRegistrazione = new FormGroup({
     username: new FormControl('', [Validators.required, Validators.minLength(3)]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(4)]),
   });
 
-  handleRegister() {
-    this.submitted.set(true);
-    this.errorMessage.set('');
-    this.successMessage.set(''); // resettiamo a ogni invio
+  registrati() {
+    this.inviato.set(true);
+    this.messaggioErrore.set('');
+    this.messaggioSuccesso.set(''); // resettiamo a ogni invio
 
-    if (this.registerForm.invalid) {
+    if (this.formRegistrazione.invalid) {
       return;
     }
 
-    this.apiService
+    this.servizioApi
       .register({
-        username: this.registerForm.value.username as string,
-        email: this.registerForm.value.email as string,
-        password: this.registerForm.value.password as string,
+        username: this.formRegistrazione.value.username as string,
+        email: this.formRegistrazione.value.email as string,
+        password: this.formRegistrazione.value.password as string,
       })
       .subscribe({
         next: () => {
-          this.successMessage.set('Registrazione completata! Ti stiamo portando al login...');
+          this.messaggioSuccesso.set('Registrazione completata! Ti stiamo portando al login...');
           setTimeout(() => {
             this.router.navigateByUrl('/login');
           }, 1800);
         },
-        error: (err) => {
-          if (err.error && (err.error.errore || err.error.messaggio)) {
-            this.errorMessage.set(err.error.errore || err.error.messaggio);
+        error: (errore) => {
+          if (errore.error && (errore.error.errore || errore.error.messaggio)) {
+            this.messaggioErrore.set(errore.error.errore || errore.error.messaggio);
           } else {
-            this.errorMessage.set('Credenziali non valide o utente già registrato.');
+            this.messaggioErrore.set('Credenziali non valide o utente già registrato.');
           }
-          console.error('Errore di registrazione:', err);
+          console.error('Errore di registrazione:', errore);
         },
       });
   }

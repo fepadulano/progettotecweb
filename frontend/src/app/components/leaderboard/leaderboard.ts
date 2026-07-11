@@ -10,21 +10,21 @@ import { ApiService, LeaderboardEntry } from '../../services/api';
   styleUrl: './leaderboard.css',
 })
 export class Leaderboard implements OnInit {
-  apiService = inject(ApiService);
+  servizioApi = inject(ApiService);
 
-  entries = signal<LeaderboardEntry[]>([]);
-  loading = signal(true);
-  errorMessage = signal('');
+  voci = signal<LeaderboardEntry[]>([]);
+  caricamento = signal(true);
+  messaggioErrore = signal('');
 
   ngOnInit() {
-    this.apiService.getLeaderboard().subscribe({
-      next: (data) => {
-        this.entries.set(data);
-        this.loading.set(false);
+    this.servizioApi.getLeaderboard().subscribe({
+      next: (dati) => {
+        this.voci.set(dati);
+        this.caricamento.set(false);
       },
       error: () => {
-        this.errorMessage.set('Impossibile caricare la classifica al momento.');
-        this.loading.set(false);
+        this.messaggioErrore.set('Impossibile caricare la classifica al momento.');
+        this.caricamento.set(false);
       },
     });
   }

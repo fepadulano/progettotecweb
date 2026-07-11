@@ -1,19 +1,19 @@
 <div class="leaderboard-container">
   <h2>Classifica</h2>
 
-  @if (loading()) {
+  @if (caricamento()) {
     <p class="status-message">Caricamento in corso...</p>
-  } @else if (errorMessage()) {
-    <p class="status-message error">{{ errorMessage() }}</p>
+  } @else if (messaggioErrore()) {
+    <p class="status-message error">{{ messaggioErrore() }}</p>
   } @else {
     <ol class="leaderboard-list">
-      @for (entry of entries(); track entry.id) {
+      @for (voce of voci(); track voce.id) {
         <li>
           <span class="rank">{{ $index + 1 }}</span>
-          <span class="username">{{ entry.username }}</span>
+          <span class="username">{{ voce.username }}</span>
           <span class="stats">
-            <span class="games-won">{{ entry.partiteVinte }} vittorie</span>
-            <span class="avg-time">{{ entry.tempoMedioSecondi | number: '1.0-0' }}s in media</span>
+            <span class="games-won">{{ voce.partiteVinte }} vittorie</span>
+            <span class="avg-time">{{ voce.tempoMedioSecondi | number: '1.0-0' }}s in media</span>
           </span>
         </li>
       } @empty {

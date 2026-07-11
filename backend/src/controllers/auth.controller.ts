@@ -7,21 +7,21 @@ export const register = async (req: Request, res: Response): Promise<void> => {
   try {
     const { username, email, password } = req.body;
 
-    const existingUser = await User.findOne({ where: { email } });
-    if (existingUser) {
+    const utenteEsistente = await User.findOne({ where: { email } });
+    if (utenteEsistente) {
       res
         .status(400)
         .json({ errore: "Un account con questa email esiste già." });
       return;
     }
 
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const sale = await bcrypt.genSalt(10);
+    const passwordHash = await bcrypt.hash(password, sale);
 
     await User.create({
       username,
       email,
-      password: hashedPassword,
+      password: passwordHash,
     });
 
     res.status(201).json({ messaggio: "Utente registrato con successo!" });
@@ -35,20 +35,20 @@ export const login = async (req: Request, res: Response): Promise<void> => {
   try {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ where: { email } });
-    if (!user) {
+    const utente = await User.findOne({ where: { email } });
+    if (!utente) {
       res.status(404).json({ errore: "Utente non trovato." });
       return;
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
+    const passwordValida = await bcrypt.compare(password, utente.password);
+    if (!passwordValida) {
       res.status(401).json({ errore: "Password errata." });
       return;
     }
 
     const token = jwt.sign(
-      { id: user.id, username: user.username },
+      { id: utente.id, username: utente.username },
       process.env.JWT_SECRET || "chiave_segreta_di_riserva",
       { expiresIn: "24h" },
     );

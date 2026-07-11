@@ -10,88 +10,88 @@ import { ApiService } from '../../services/api';
   styleUrl: './game.css',
 })
 export class Game implements OnInit {
-  apiService = inject(ApiService);
+  servizioApi = inject(ApiService);
 
-  sessionId = signal<number | null>(null);
-  censoredText = signal('');
-  gameMessage = signal('Caricamento partita in corso...');
-  isVictory = signal(false);
-  gameOver = signal(false); // true sia in caso di vittoria che di abbandono
+  idPartita = signal<number | null>(null);
+  testoCensurato = signal('');
+  messaggioPartita = signal('Caricamento partita in corso...');
+  vittoria = signal(false);
+  partitaConclusa = signal(false); // true sia in caso di vittoria che di abbandono
 
-  guessControl = new FormControl('', Validators.required);
+  controlloTentativo = new FormControl('', Validators.required);
 
   ngOnInit() {
-    this.startNewGame();
+    this.iniziaNuovaPartita();
   }
 
-  startNewGame() {
-    this.gameMessage.set('Caricamento partita in corso...');
-    this.apiService.startGame().subscribe({
-      next: (res) => {
-        if (res.errore) {
-          this.gameMessage.set(res.errore);
+  iniziaNuovaPartita() {
+    this.messaggioPartita.set('Caricamento partita in corso...');
+    this.servizioApi.startGame().subscribe({
+      next: (risposta) => {
+        if (risposta.errore) {
+          this.messaggioPartita.set(risposta.errore);
         } else {
-          this.sessionId.set(res.idPartita!);
-          this.censoredText.set(res.testoCensurato!);
-          this.gameMessage.set('Partita iniziata! Prova a indovinare.');
-          this.isVictory.set(false);
-          this.gameOver.set(false);
-          this.guessControl.reset();
+          this.idPartita.set(risposta.idPartita!);
+          this.testoCensurato.set(risposta.testoCensurato!);
+          this.messaggioPartita.set('Partita iniziata! Prova a indovinare.');
+          this.vittoria.set(false);
+          this.partitaConclusa.set(false);
+          this.controlloTentativo.reset();
         }
       },
-      error: (err) =>
-        this.gameMessage.set(
-          err?.error?.errore ?? 'Errore di connessione al server.',
+      error: (errore) =>
+        this.messaggioPartita.set(
+          errore?.error?.errore ?? 'Errore di connessione al server.',
         ),
     });
   }
 
-  makeGuess(isTitle: boolean) {
-    const sessionId = this.sessionId();
-    if (this.guessControl.invalid || !sessionId) return;
+  tentativo(eTitolo: boolean) {
+    const idPartita = this.idPartita();
+    if (this.controlloTentativo.invalid || !idPartita) return;
 
-    const word = this.guessControl.value as string;
+    const parola = this.controlloTentativo.value as string;
 
-    this.apiService.makeGuess(sessionId, word, isTitle).subscribe({
-      next: (res) => {
-        if (res.errore) {
-          this.gameMessage.set(res.errore);
+    this.servizioApi.makeGuess(idPartita, parola, eTitolo).subscribe({
+      next: (risposta) => {
+        if (risposta.errore) {
+          this.messaggioPartita.set(risposta.errore);
           return;
         }
 
-        this.gameMessage.set(res.messaggio);
+        this.messaggioPartita.set(risposta.messaggio);
 
-        if (res.nuovoTestoCensurato) {
-          this.censoredText.set(res.nuovoTestoCensurato);
+        if (risposta.nuovoTestoCensurato) {
+          this.testoCensurato.set(risposta.nuovoTestoCensurato);
         }
 
-        if (res.vittoria) {
-          this.isVictory.set(true);
-          this.gameOver.set(true);
-          if (res.testoInChiaro) {
-            this.censoredText.set(res.testoInChiaro);
+        if (risposta.vittoria) {
+          this.vittoria.set(true);
+          this.partitaConclusa.set(true);
+          if (risposta.testoInChiaro) {
+            this.testoCensurato.set(risposta.testoInChiaro);
           }
         }
 
-        this.guessControl.reset();
+        this.controlloTentativo.reset();
       },
-      error: () => this.gameMessage.set('Errore durante il tentativo.'),
+      error: () => this.messaggioPartita.set('Errore durante il tentativo.'),
     });
   }
 
-  handleAbandon() {
-    const sessionId = this.sessionId();
-    if (!sessionId) return;
+  abbandona() {
+    const idPartita = this.idPartita();
+    if (!idPartita) return;
 
-    this.apiService.abandonGame(sessionId).subscribe({
-      next: (res) => {
-        this.gameMessage.set(res.messaggio ?? 'Partita abbandonata.');
-        if (res.testoInChiaro) {
-          this.censoredText.set(res.testoInChiaro);
+    this.servizioApi.abandonGame(idPartita).subscribe({
+      next: (risposta) => {
+        this.messaggioPartita.set(risposta.messaggio ?? 'Partita abbandonata.');
+        if (risposta.testoInChiaro) {
+          this.testoCensurato.set(risposta.testoInChiaro);
         }
-        this.gameOver.set(true);
+        this.partitaConclusa.set(true);
       },
-      error: () => this.gameMessage.set("Errore durante l'abbandono della partita."),
+      error: () => this.messaggioPartita.set("Errore durante l'abbandono della partita."),
     });
   }
 }

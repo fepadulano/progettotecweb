@@ -6,8 +6,8 @@ export const authenticateToken = (
   res: Response,
   next: NextFunction,
 ): void => {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
+  const headerAutenticazione = req.headers["authorization"];
+  const token = headerAutenticazione && headerAutenticazione.split(" ")[1];
 
   if (!token) {
     res.status(401).json({ errore: "Accesso negato. Token mancante." });
@@ -17,13 +17,13 @@ export const authenticateToken = (
   jwt.verify(
     token,
     process.env.JWT_SECRET || "chiave_segreta_di_riserva",
-    (err: any, user: any) => {
-      if (err) {
+    (errore: any, datiUtente: any) => {
+      if (errore) {
         res.status(403).json({ errore: "Token non valido o scaduto." });
         return;
       }
 
-      (req as any).user = user;
+      (req as any).user = datiUtente;
       next();
     },
   );

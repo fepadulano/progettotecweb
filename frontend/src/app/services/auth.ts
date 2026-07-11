@@ -10,39 +10,39 @@ export type AuthState = {
   providedIn: 'root',
 })
 export class AuthService {
-  private authState: WritableSignal<AuthState> = signal<AuthState>({
+  private statoAuth: WritableSignal<AuthState> = signal<AuthState>({
     user: null,
     token: null,
     isAuthenticated: false,
   });
 
-  user = computed(() => this.authState().user);
-  token = computed(() => this.authState().token);
-  isAuthenticated = computed(() => this.authState().isAuthenticated);
+  user = computed(() => this.statoAuth().user);
+  token = computed(() => this.statoAuth().token);
+  isAuthenticated = computed(() => this.statoAuth().isAuthenticated);
 
   constructor() {
-    const storedToken = localStorage.getItem('token');
-    const storedUser = localStorage.getItem('user');
+    const tokenSalvato = localStorage.getItem('token');
+    const utenteSalvato = localStorage.getItem('user');
 
-    this.authState.set({
-      user: storedUser,
-      token: storedToken,
-      isAuthenticated: !!storedToken,
+    this.statoAuth.set({
+      user: utenteSalvato,
+      token: tokenSalvato,
+      isAuthenticated: !!tokenSalvato,
     });
 
     // ogni volta che lo stato cambia, lo persistiamo nel localStorage
     effect(() => {
-      const currentToken = this.authState().token;
-      const currentUser = this.authState().user;
+      const tokenAttuale = this.statoAuth().token;
+      const utenteAttuale = this.statoAuth().user;
 
-      if (currentToken) {
-        localStorage.setItem('token', currentToken);
+      if (tokenAttuale) {
+        localStorage.setItem('token', tokenAttuale);
       } else {
         localStorage.removeItem('token');
       }
 
-      if (currentUser) {
-        localStorage.setItem('user', currentUser);
+      if (utenteAttuale) {
+        localStorage.setItem('user', utenteAttuale);
       } else {
         localStorage.removeItem('user');
       }
@@ -50,7 +50,7 @@ export class AuthService {
   }
 
   loginSuccess(token: string, username: string) {
-    this.authState.set({
+    this.statoAuth.set({
       user: username,
       token: token,
       isAuthenticated: true,
@@ -58,7 +58,7 @@ export class AuthService {
   }
 
   logout() {
-    this.authState.set({
+    this.statoAuth.set({
       user: null,
       token: null,
       isAuthenticated: false,

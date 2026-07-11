@@ -8,8 +8,8 @@
       direttamente il titolo dell'articolo!
     </p>
 
-    @if (authService.isAuthenticated()) {
-      <p class="welcome-back">Bentornato, <strong>{{ authService.user() }}</strong>!</p>
+    @if (servizioAuth.isAuthenticated()) {
+      <p class="welcome-back">Bentornato, <strong>{{ servizioAuth.user() }}</strong>!</p>
       <a class="btn-hero-primary" routerLink="/game">Inizia una partita</a>
     } @else {
       <div class="cta-group">

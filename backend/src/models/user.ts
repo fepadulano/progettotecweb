@@ -6,7 +6,7 @@ class User extends Model {
   declare username: string;
   declare email: string;
   declare password: string;
-  declare total_score: number;
+  declare punteggioTotale: number;
 }
 
 User.init(
@@ -15,7 +15,12 @@ User.init(
     username: { type: DataTypes.STRING, allowNull: false, unique: true },
     email: { type: DataTypes.STRING, allowNull: false, unique: true },
     password: { type: DataTypes.STRING, allowNull: false },
-    total_score: { type: DataTypes.INTEGER, defaultValue: 0, allowNull: false },
+    punteggioTotale: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+      allowNull: false,
+      field: "total_score",
+    },
   },
   {
     sequelize: database,

@@ -9,11 +9,11 @@ import { AuthService } from './services/auth';
   styleUrl: './app.css'
 })
 export class App {
-  authService = inject(AuthService);
+  servizioAuth = inject(AuthService);
   router = inject(Router);
 
   logout() {
-    this.authService.logout();
+    this.servizioAuth.logout();
     this.router.navigateByUrl('/home');
   }
 }

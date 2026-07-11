@@ -8,8 +8,8 @@ export const getLeaderboard = async (
 ): Promise<void> => {
   try {
     // ordiniamo per vittorie (più alto è meglio) e tempo medio (più basso è meglio)
-    const rows = await GameSession.findAll({
-      where: { status: "WON" },
+    const righe = await GameSession.findAll({
+      where: { stato: "WON" },
       attributes: [
         "userId",
         [fn("COUNT", col("GameSession.id")), "partiteVinte"],
@@ -33,14 +33,14 @@ export const getLeaderboard = async (
       raw: true,
     });
 
-    const leaderboard = (rows as any[]).map((row) => ({
-      id: row.userId,
-      username: row["User.username"],
-      partiteVinte: parseInt(row.partiteVinte, 10),
-      tempoMedioSecondi: parseFloat(row.tempoMedioSecondi),
+    const classifica = (righe as any[]).map((riga) => ({
+      id: riga.userId,
+      username: riga["User.username"],
+      partiteVinte: parseInt(riga.partiteVinte, 10),
+      tempoMedioSecondi: parseFloat(riga.tempoMedioSecondi),
     }));
 
-    res.status(200).json(leaderboard);
+    res.status(200).json(classifica);
   } catch (error) {
     console.error(error);
     res

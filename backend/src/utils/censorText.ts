@@ -1,11 +1,11 @@
 export function censorText(
-  originalText: string,
-  guessedWords: string[],
+  testoOriginale: string,
+  paroleIndovinate: string[],
 ): string {
-  return originalText.replace(/[a-zA-Zà-ÿ]+/gi, (match) => {
-    if (guessedWords.includes(match.toLowerCase())) {
-      return match; // parola indovinata: la lascia in chiaro
+  return testoOriginale.replace(/[a-zA-Zà-ÿ]+/gi, (corrispondenza) => {
+    if (paroleIndovinate.includes(corrispondenza.toLowerCase())) {
+      return corrispondenza; // parola indovinata: la lascia in chiaro
     }
-    return "_".repeat(match.length); // parola ignota: trattini
+    return "_".repeat(corrispondenza.length); // parola ignota: trattini
   });
 }

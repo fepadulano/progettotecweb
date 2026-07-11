@@ -11,24 +11,24 @@ import { ApiService, CompletedGameDetail } from '../../services/api';
   styleUrl: './history-detail.css',
 })
 export class HistoryDetail implements OnInit {
-  route = inject(ActivatedRoute);
-  apiService = inject(ApiService);
+  rotta = inject(ActivatedRoute);
+  servizioApi = inject(ApiService);
 
-  game = signal<CompletedGameDetail | null>(null);
-  loading = signal(true);
-  errorMessage = signal('');
+  partita = signal<CompletedGameDetail | null>(null);
+  caricamento = signal(true);
+  messaggioErrore = signal('');
 
   ngOnInit() {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+    const id = Number(this.rotta.snapshot.paramMap.get('id'));
 
-    this.apiService.getCompletedGameDetail(id).subscribe({
-      next: (data) => {
-        this.game.set(data);
-        this.loading.set(false);
+    this.servizioApi.getCompletedGameDetail(id).subscribe({
+      next: (dati) => {
+        this.partita.set(dati);
+        this.caricamento.set(false);
       },
       error: () => {
-        this.errorMessage.set('Partita non trovata.');
-        this.loading.set(false);
+        this.messaggioErrore.set('Partita non trovata.');
+        this.caricamento.set(false);
       },
     });
   }

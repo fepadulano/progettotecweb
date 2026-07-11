@@ -1,22 +1,22 @@
 <div class="detail-container">
   <a class="back-link" routerLink="/storico">&larr; Torna allo storico</a>
 
-  @if (loading()) {
+  @if (caricamento()) {
     <p class="status-message">Caricamento in corso...</p>
-  } @else if (errorMessage()) {
-    <p class="status-message error">{{ errorMessage() }}</p>
+  } @else if (messaggioErrore()) {
+    <p class="status-message error">{{ messaggioErrore() }}</p>
   } @else {
-    @if (game(); as g) {
-      <h2>{{ g.titoloArticolo }}</h2>
+    @if (partita(); as p) {
+      <h2>{{ p.titoloArticolo }}</h2>
       <p class="meta">
-        <span class="status" [class.won]="g.stato === 'WON'">
-          {{ g.stato === 'WON' ? 'Vinta' : 'Abbandonata' }}
+        <span class="status" [class.won]="p.stato === 'WON'">
+          {{ p.stato === 'WON' ? 'Vinta' : 'Abbandonata' }}
         </span>
-        · {{ g.tentativi }} tentativi
-        · {{ g.durataSecondi | number: '1.0-0' }}s impiegati
-        · giocata da {{ g.username ?? 'Anonimo' }}
+        · {{ p.tentativi }} tentativi
+        · {{ p.durataSecondi | number: '1.0-0' }}s impiegati
+        · giocata da {{ p.username ?? 'Anonimo' }}
       </p>
-      <div class="article-text">{{ g.testoCensurato }}</div>
+      <div class="article-text">{{ p.testoCensurato }}</div>
     }
   }
 </div>

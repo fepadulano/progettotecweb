@@ -19,7 +19,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/games", publicGamesRoutes);
 
 app.get("/", (req: Request, res: Response) => {
-  res.json({ message: "Benvenuto su WikiBlank API Backend con TypeScript!" });
+  res.json({ messaggio: "Benvenuto su WikiBlank API Backend con TypeScript!" });
 });
 
 app.listen(PORT, async () => {

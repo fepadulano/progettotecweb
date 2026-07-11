@@ -10,5 +10,5 @@ import { AuthService } from '../../services/auth';
   styleUrl: './home.css',
 })
 export class Home {
-  authService = inject(AuthService);
+  servizioAuth = inject(AuthService);
 }

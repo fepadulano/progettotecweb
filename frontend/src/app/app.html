@@ -10,14 +10,14 @@
     >
     <a routerLink="/leaderboard" routerLinkActive="active">Classifica</a>
     <a routerLink="/storico" routerLinkActive="active">Storico</a>
-    @if (authService.isAuthenticated()) {
+    @if (servizioAuth.isAuthenticated()) {
       <a routerLink="/game" routerLinkActive="active">Gioca</a>
     }
   </div>
 
   <div class="nav-auth">
-    @if (authService.isAuthenticated()) {
-      <span class="nav-user">{{ authService.user() }}</span>
+    @if (servizioAuth.isAuthenticated()) {
+      <span class="nav-user">{{ servizioAuth.user() }}</span>
       <button class="btn-nav-ghost" (click)="logout()">Esci</button>
     } @else {
       <a class="btn-nav-link" routerLink="/login" routerLinkActive="active">Accedi</a>
