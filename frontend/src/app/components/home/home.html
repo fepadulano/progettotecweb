@@ -10,7 +10,7 @@
 
     @if (servizioAuth.isAuthenticated()) {
       <p class="bentornato">Bentornato, <strong>{{ servizioAuth.user() }}</strong>!</p>
-      <a class="btn-vetrina-primario" routerLink="/game">Inizia una partita</a>
+      <a class="btn-vetrina-primario" routerLink="/partita">Inizia una partita</a>
     } @else {
       <div class="gruppo-cta">
         <a class="btn-vetrina-primario" routerLink="/login">Accedi</a>

@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { Login } from './components/login/login';
 import { Register } from './components/register/register';
-import { Game } from './components/game/game';
+import { Partita } from './components/partita/partita';
 import { Home } from './components/home/home';
 import { Classifica } from './components/classifica/classifica';
 import { Storico } from './components/storico/storico';
@@ -16,5 +16,5 @@ export const routes: Routes = [
   { path: 'storico/:id', component: StoricoDettaglio, title: 'Dettaglio Partita | WikiBlank' },
   { path: 'login', component: Login, title: 'Accedi | WikiBlank' },
   { path: 'register', component: Register, title: 'Registrati | WikiBlank' },
-  { path: 'game', component: Game, canActivate: [authGuard], title: 'Gioca | WikiBlank' },
+  { path: 'partita', component: Partita, canActivate: [authGuard], title: 'Gioca | WikiBlank' },
 ];

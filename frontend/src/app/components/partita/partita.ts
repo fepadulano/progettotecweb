@@ -3,13 +3,13 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ApiService } from '../../services/api';
 
 @Component({
-  selector: 'app-game',
+  selector: 'app-partita',
   standalone: true,
   imports: [ReactiveFormsModule],
-  templateUrl: './game.html',
-  styleUrl: './game.css',
+  templateUrl: './partita.html',
+  styleUrl: './partita.css',
 })
-export class Game implements OnInit {
+export class Partita implements OnInit {
   servizioApi = inject(ApiService);
 
   idPartita = signal<number | null>(null);

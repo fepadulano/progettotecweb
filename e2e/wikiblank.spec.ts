@@ -19,7 +19,7 @@ async function registerAndLogin(
   await page.locator("#email").fill(email);
   await page.locator("#password").fill(password);
   await page.getByRole("button", { name: "Entra" }).click();
-  await expect(page).toHaveURL("/game");
+  await expect(page).toHaveURL("/partita");
 
   // aspetta che la partita abbia finito di caricare
   await expect(page.locator(".input-tentativo")).toBeVisible({
@@ -48,8 +48,8 @@ test.describe("senza autenticazione", () => {
     await expect(page.getByText("La password è obbligatoria.")).toBeVisible();
   });
 
-  test("/game reindirizza a /login", async ({ page }) => {
-    await page.goto("/game");
+  test("/partita reindirizza a /login", async ({ page }) => {
+    await page.goto("/partita");
 
     await expect(page).toHaveURL("/login");
   });

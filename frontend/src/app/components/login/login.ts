@@ -41,7 +41,7 @@ export class Login {
         next: (risposta) => {
           if (risposta.token) {
             this.servizioAuth.loginSuccess(risposta.token, this.formLogin.value.email as string);
-            this.router.navigateByUrl('/game');
+            this.router.navigateByUrl('/partita');
           } else if (risposta.errore || risposta.messaggio) {
             // il backend a volte risponde 200 OK con un errore dentro il json
             this.messaggioErrore.set(risposta.errore || risposta.messaggio || 'Errore di login');
