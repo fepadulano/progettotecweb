@@ -21,9 +21,10 @@ async function registerAndLogin(
   await page.getByRole("button", { name: "Entra" }).click();
   await expect(page).toHaveURL("/game");
 
-  // aspetta che la partita abbia finito di caricare: sotto carico (più test
-  // in parallelo che chiamano Wikipedia insieme) può volerci un po'
-  await expect(page.locator(".input-tentativo")).toBeVisible({ timeout: 30000 });
+  // aspetta che la partita abbia finito di caricare
+  await expect(page.locator(".input-tentativo")).toBeVisible({
+    timeout: 30000,
+  });
 
   return { email, password };
 }
