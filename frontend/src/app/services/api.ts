@@ -17,6 +17,7 @@ export interface RichiestaLogin {
 export interface AutenticazioneResponse {
   messaggio?: string;
   token?: string;
+  username?: string; // presente solo nella risposta del login
   errore?: string; // presente se le credenziali sono errate o se l'utente esiste già
 }
 
