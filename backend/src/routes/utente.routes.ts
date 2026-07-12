@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { classifica } from "../controllers/user.controller";
+import { classifica } from "../controllers/utente.controller";
 
 const router = Router();
 

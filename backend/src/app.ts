@@ -4,9 +4,9 @@ import sequelize from "./config/database";
 import "./models"; // registra le relazioni tra i modelli (vedi models/index.ts)
 
 import rotteAutenticazione from "./routes/auth.routes";
-import rottePartita from "./routes/game.routes";
-import rotteUtenti from "./routes/user.routes";
-import rottePartiteConcluse from "./routes/publicGames.routes";
+import rottePartita from "./routes/partita.routes";
+import rotteUtenti from "./routes/utente.routes";
+import rottePartiteConcluse from "./routes/partiteConcluse.routes";
 
 const app: Application = express();
 const PORT = process.env.PORT || 3000;

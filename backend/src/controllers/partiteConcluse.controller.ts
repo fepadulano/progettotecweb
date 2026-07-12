@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Partita, Utente } from "../models";
-import { censuraTesto } from "../utils/censorText";
+import { censuraTesto } from "../utils/censuraTesto";
 
 const STATI_CONCLUSI = ["VINTA", "ABBANDONATA"];
 

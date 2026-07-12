@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import axios from "axios";
 import { Partita, Tentativo, Utente } from "../models";
-import { censuraTesto } from "../utils/censorText";
+import { censuraTesto } from "../utils/censuraTesto";
 
 const WIKI_USER_AGENT =
   "WikiBlank/1.0 (progetto universitario Web Technologies, Federico II)";

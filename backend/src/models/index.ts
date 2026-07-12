@@ -1,6 +1,6 @@
-import Utente from "./user";
-import Partita from "./gameSession";
-import Tentativo from "./guess";
+import Utente from "./utente";
+import Partita from "./partita";
+import Tentativo from "./tentativo";
 
 Utente.hasMany(Partita, { foreignKey: "userId" });
 Partita.belongsTo(Utente, { foreignKey: "userId" });

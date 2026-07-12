@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { avviaPartita, inviaTentativo, abbandonaPartita } from "../controllers/game.controller";
+import { avviaPartita, inviaTentativo, abbandonaPartita } from "../controllers/partita.controller";
 import { autenticaToken } from "../middlewares/auth.middleware";
 
 const router = Router();

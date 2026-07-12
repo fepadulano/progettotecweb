@@ -2,7 +2,7 @@ import { Router } from "express";
 import {
   elencaPartiteConcluse,
   ottieniDettaglioPartita,
-} from "../controllers/publicGames.controller";
+} from "../controllers/partiteConcluse.controller";
 
 const router = Router();
 
