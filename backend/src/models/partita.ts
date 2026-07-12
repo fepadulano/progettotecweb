@@ -15,53 +15,43 @@ class Partita extends Model {
   declare readonly updatedAt: Date;
 }
 
-// "field" mantiene invariato il nome della colonna fisica nel database (in
-// inglese, già esistente), mentre in tutto il resto del codice si usa il
-// nome della proprietà in italiano: nessuna migrazione, nessun dato perso.
-// stesso discorso per tableName: la tabella fisica resta "GameSessions",
-// ma modelName (l'alias usato internamente da Sequelize, es. nelle query
-// con JOIN) può comunque essere in italiano perché è scollegato dal nome
-// fisico grazie a tableName esplicito
 Partita.init(
   {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
     titoloArticolo: {
       type: DataTypes.STRING,
       allowNull: false,
-      field: "article_title",
+      field: "titolo_articolo",
     },
     testoArticolo: {
       type: DataTypes.TEXT,
       allowNull: false,
-      field: "article_text",
+      field: "testo_articolo",
     },
     stato: {
       type: DataTypes.STRING,
       defaultValue: "IN_CORSO",
-      field: "status",
     },
     tentativi: {
       type: DataTypes.INTEGER,
       defaultValue: 0,
       allowNull: false,
-      field: "attempts_count",
     },
     punteggio: {
       type: DataTypes.INTEGER,
       defaultValue: 0,
       allowNull: false,
-      field: "score",
     },
     paroleIndovinate: {
       type: DataTypes.JSON,
       defaultValue: [],
-      field: "guessed_words",
+      field: "parole_indovinate",
     },
   },
   {
     sequelize: database,
     modelName: "Partita",
-    tableName: "GameSessions",
+    tableName: "Partite",
   },
 );
 

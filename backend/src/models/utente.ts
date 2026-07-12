@@ -9,8 +9,6 @@ class Utente extends Model {
   declare punteggioTotale: number;
 }
 
-// tableName resta "Users" (tabella fisica già esistente), ma modelName può
-// essere in italiano: essendo esplicito tableName, i due nomi sono scollegati
 Utente.init(
   {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
@@ -21,13 +19,13 @@ Utente.init(
       type: DataTypes.INTEGER,
       defaultValue: 0,
       allowNull: false,
-      field: "total_score",
+      field: "punteggio_totale",
     },
   },
   {
     sequelize: database,
     modelName: "Utente",
-    tableName: "Users",
+    tableName: "Utenti",
   },
 );
 

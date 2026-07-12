@@ -9,33 +9,30 @@ class Tentativo extends Model {
   declare tentativoSulTitolo: boolean;
 }
 
-// tableName resta "Guesses" (tabella fisica già esistente), ma modelName può
-// essere in italiano: essendo esplicito tableName, i due nomi sono scollegati
 Tentativo.init(
   {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
     parolaTentata: {
       type: DataTypes.STRING,
       allowNull: false,
-      field: "word_attempted",
+      field: "parola_tentata",
     },
     corretta: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
       allowNull: false,
-      field: "is_correct",
     },
     tentativoSulTitolo: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
       allowNull: false,
-      field: "is_title_guess",
+      field: "tentativo_titolo",
     },
   },
   {
     sequelize: database,
     modelName: "Tentativo",
-    tableName: "Guesses",
+    tableName: "Tentativi",
   },
 );
 

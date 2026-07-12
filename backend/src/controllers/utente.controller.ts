@@ -1,41 +1,26 @@
 import { Request, Response } from "express";
-import { fn, col, literal } from "sequelize";
-import { Partita, Utente } from "../models";
+import { QueryTypes } from "sequelize";
+import database from "../config/database";
 
 export const classifica = async (req: Request, res: Response): Promise<void> => {
   try {
     // ordiniamo per vittorie (più alto è meglio) e tempo medio (più basso è meglio)
-    const righe = await Partita.findAll({
-      where: { stato: "VINTA" },
-      attributes: [
-        "userId",
-        [fn("COUNT", col("Partita.id")), "partiteVinte"],
-        [
-          fn(
-            "AVG",
-            literal(
-              `EXTRACT(EPOCH FROM ("Partita"."updatedAt" - "Partita"."createdAt"))`,
-            ),
-          ),
-          "tempoMedioSecondi",
-        ],
-      ],
-      include: [{ model: Utente, attributes: ["username"] }],
-      group: ["Partita.userId", "Utente.id"],
-      order: [
-        [literal('"partiteVinte"'), "DESC"],
-        [literal('"tempoMedioSecondi"'), "ASC"],
-      ],
-      limit: 10,
-      raw: true,
-    });
-
-    const risultato = (righe as any[]).map((riga) => ({
-      id: riga.userId,
-      username: riga["Utente.username"],
-      partiteVinte: parseInt(riga.partiteVinte, 10),
-      tempoMedioSecondi: parseFloat(riga.tempoMedioSecondi),
-    }));
+    const risultato = await database.query(
+      `
+      SELECT
+        "Utenti".id,
+        "Utenti".username,
+        COUNT("Partite".id)::int AS "partiteVinte",
+        AVG(EXTRACT(EPOCH FROM ("Partite"."updatedAt" - "Partite"."createdAt")))::float AS "tempoMedioSecondi"
+      FROM "Partite"
+      JOIN "Utenti" ON "Utenti".id = "Partite".id_utente
+      WHERE "Partite".stato = 'VINTA'
+      GROUP BY "Utenti".id, "Utenti".username
+      ORDER BY "partiteVinte" DESC, "tempoMedioSecondi" ASC
+      LIMIT 10
+      `,
+      { type: QueryTypes.SELECT },
+    );
 
     res.status(200).json(risultato);
   } catch (error) {
