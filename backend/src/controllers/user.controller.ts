@@ -10,10 +10,13 @@ export const classifica = async (req: Request, res: Response): Promise<void> => 
 
     // passo 1: raggruppiamo le partite vinte per utente, in un oggetto
     // semplice con l'id utente come chiave
-    const perUtente: Record<
-      number,
-      { username: string; vittorie: number; tempoTotaleSecondi: number }
-    > = {};
+    const perUtente: {
+      [idUtente: number]: {
+        username: string;
+        vittorie: number;
+        tempoTotaleSecondi: number;
+      };
+    } = {};
 
     for (const partita of partiteVinte) {
       const idUtente = partita.userId;
