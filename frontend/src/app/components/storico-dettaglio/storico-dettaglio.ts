@@ -11,7 +11,7 @@ import { ApiService, DettaglioPartitaConclusa } from '../../services/api';
   styleUrl: './storico-dettaglio.css',
 })
 export class StoricoDettaglio implements OnInit {
-  rotta = inject(ActivatedRoute);
+  route = inject(ActivatedRoute);
   servizioApi = inject(ApiService);
 
   partita = signal<DettaglioPartitaConclusa | null>(null);
@@ -19,7 +19,7 @@ export class StoricoDettaglio implements OnInit {
   messaggioErrore = signal('');
 
   ngOnInit() {
-    const id = Number(this.rotta.snapshot.paramMap.get('id'));
+    const id = Number(this.route.snapshot.paramMap.get('id'));
 
     this.servizioApi.ottieniDettaglioPartita(id).subscribe({
       next: (dati) => {
