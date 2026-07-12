@@ -11,7 +11,7 @@ import { ApiService } from '../../services/api';
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
-export class LoginComponent {
+export class Login {
   servizioApi = inject(ApiService);
   servizioAuth = inject(AuthService);
   router = inject(Router);

@@ -10,7 +10,7 @@ import { ApiService, DettaglioPartitaConclusa } from '../../services/api';
   templateUrl: './storico-dettaglio.html',
   styleUrl: './storico-dettaglio.css',
 })
-export class DettaglioStorico implements OnInit {
+export class StoricoDettaglio implements OnInit {
   rotta = inject(ActivatedRoute);
   servizioApi = inject(ApiService);
 

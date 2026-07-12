@@ -9,8 +9,8 @@ class Tentativo extends Model {
   declare tentativoSulTitolo: boolean;
 }
 
-// modelName resta "Guess": è il nome con cui Sequelize ha già creato la
-// tabella fisica, cambiarlo la farebbe cercare una tabella inesistente
+// tableName resta "Guesses" (tabella fisica già esistente), ma modelName può
+// essere in italiano: essendo esplicito tableName, i due nomi sono scollegati
 Tentativo.init(
   {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
@@ -34,7 +34,8 @@ Tentativo.init(
   },
   {
     sequelize: database,
-    modelName: "Guess",
+    modelName: "Tentativo",
+    tableName: "Guesses",
   },
 );
 

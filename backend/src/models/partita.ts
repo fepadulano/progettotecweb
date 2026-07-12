@@ -18,8 +18,10 @@ class Partita extends Model {
 // "field" mantiene invariato il nome della colonna fisica nel database (in
 // inglese, già esistente), mentre in tutto il resto del codice si usa il
 // nome della proprietà in italiano: nessuna migrazione, nessun dato perso.
-// modelName resta "GameSession": è il nome con cui Sequelize ha già creato
-// la tabella fisica, cambiarlo la farebbe cercare una tabella inesistente
+// stesso discorso per tableName: la tabella fisica resta "GameSessions",
+// ma modelName (l'alias usato internamente da Sequelize, es. nelle query
+// con JOIN) può comunque essere in italiano perché è scollegato dal nome
+// fisico grazie a tableName esplicito
 Partita.init(
   {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
@@ -58,7 +60,8 @@ Partita.init(
   },
   {
     sequelize: database,
-    modelName: "GameSession",
+    modelName: "Partita",
+    tableName: "GameSessions",
   },
 );
 

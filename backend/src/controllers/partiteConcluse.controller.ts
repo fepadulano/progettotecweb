@@ -33,7 +33,7 @@ export const elencaPartiteConcluse = async (
       stato: partita.stato,
       tentativi: partita.tentativi,
       durataSecondi: durataInSecondi(partita),
-      username: (partita as any).User?.username ?? null,
+      username: (partita as any).Utente?.username ?? null,
       giocataIl: partita.createdAt,
     }));
 
@@ -72,7 +72,7 @@ export const ottieniDettaglioPartita = async (
       testoCensurato: censuraTesto(partita.testoArticolo, partita.paroleIndovinate),
       tentativi: partita.tentativi,
       durataSecondi: durataInSecondi(partita),
-      username: (partita as any).User?.username ?? null,
+      username: (partita as any).Utente?.username ?? null,
       giocataIl: partita.createdAt,
     });
   } catch (error) {
