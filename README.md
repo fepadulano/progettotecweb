@@ -22,11 +22,13 @@ Crea un file `.env` in `backend/` con:
 
 ```
 PORT=3000
-DATABASE_URL=postgres://<utente>:<password>@localhost:5432/wikiblank_db
-JWT_SECRET=<una stringa casuale e segreta>
+DATABASE_URL=postgres://utente:password@localhost:5432/wikiblank_db
+JWT_SECRET=una_stringa_casuale_e_segreta
 ```
 
-Serve un database PostgreSQL locale chiamato `wikiblank_db`. Poi:
+Sostituisci `utente`/`password` con le credenziali del tuo Postgres locale (es.
+`postgres:postgres` se non è stata cambiata la password di default). Serve un
+database PostgreSQL locale chiamato `wikiblank_db`. Poi:
 
 ```bash
 npm run dev

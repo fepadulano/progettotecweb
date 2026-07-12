@@ -3,8 +3,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const database = new Sequelize("wikiblank_db", "postgres", "postgres", {
-  host: "localhost",
+const database = new Sequelize(process.env.DATABASE_URL as string, {
   dialect: "postgres",
   logging: false, // disabilita i log delle query SQL nel terminale per non fare confusione
 });
