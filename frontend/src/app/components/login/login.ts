@@ -43,7 +43,6 @@ export class Login {
           this.router.navigateByUrl('/partita');
         },
         error: (errore) => {
-          // status non-2xx: lo status HTTP dice già che è un errore, basta il messaggio
           this.messaggioErrore.set(errore.error?.messaggio ?? 'Credenziali errate');
         },
       });

@@ -5,7 +5,7 @@ class Tentativo extends Model {
   declare id: number;
   declare parolaTentata: string;
   declare corretta: boolean;
-  declare sessionId: number;
+  declare idPartita: number;
   declare tentativoSulTitolo: boolean;
 }
 

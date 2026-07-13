@@ -5,8 +5,8 @@ import { censuraTesto } from "../utils/censuraTesto";
 
 const WIKI_USER_AGENT =
   "WikiBlank/1.0 (progetto universitario Web Technologies, Federico II)";
-const LUNGHEZZA_MINIMA_ARTICOLO = 200; // sotto questa soglia l'articolo è uno stub con troppe poche parole comuni da indovinare
-const LUNGHEZZA_MASSIMA_ARTICOLO = 1000; // oltre, il testo censurato diventa un muro di trattini troppo lungo da giocare
+const LUNGHEZZA_MINIMA_ARTICOLO = 200;
+const LUNGHEZZA_MASSIMA_ARTICOLO = 1000;
 const MAX_TENTATIVI_RECUPERO = 10;
 
 function idUtenteAutenticato(req: Request): number {
@@ -18,8 +18,6 @@ function haMarkupGrezzo(testo: string): boolean {
   return /\{\\[a-zA-Z]|\\displaystyle|\\frac|\\sqrt|\\begin\{/.test(testo);
 }
 
-// taglia all'ultimo punto pieno prima del limite, così il testo censurato
-// resta giocabile invece di essere un muro di trattini
 function accorciaTesto(testo: string, lunghezzaMassima: number): string {
   if (testo.length <= lunghezzaMassima) return testo;
 
@@ -53,7 +51,7 @@ async function recuperaArticoloCasuale(): Promise<{
 
     // rispostaWiki.data ha questa forma:
     // { query: { pages: { "8720481": { pageid, ns, title, extract } } } }
-    // "pages" non è un array ma un oggetto con l'id della pagina come chiave,
+    // pages è un oggetto con l'id della pagina come chiave,
     // e quell'id cambia ad ogni chiamata (l'articolo è casuale)
     const pagine = rispostaWiki.data.query.pages;
     const idPagina = Object.keys(pagine)[0];
@@ -80,12 +78,12 @@ export const avviaPartita = async (
   res: Response,
 ): Promise<void> => {
   try {
-    const userId = idUtenteAutenticato(req);
+    const idUtente = idUtenteAutenticato(req);
 
     // riprendiamo una partita in corso invece di crearne una nuova, così si può
     // continuare da un altro dispositivo senza perdere i progressi
     const partitaEsistente = await Partita.findOne({
-      where: { userId, stato: "IN_CORSO" },
+      where: { idUtente, stato: "IN_CORSO" },
     });
 
     if (partitaEsistente) {
@@ -112,7 +110,7 @@ export const avviaPartita = async (
     const { titolo: titoloArticolo, testo: testoArticolo } = articolo;
 
     const nuovaPartita = await Partita.create({
-      userId,
+      idUtente,
       titoloArticolo,
       testoArticolo, // testo originale, mai inviato al frontend prima della fine partita
       stato: "IN_CORSO",
@@ -139,7 +137,7 @@ async function gestisciTentativoTitolo(
   const titoloCorretto = parolaNormalizzata === titoloNormalizzato;
 
   await Tentativo.create({
-    sessionId: partita.id,
+    idPartita: partita.id,
     parolaTentata: parola,
     corretta: titoloCorretto,
     tentativoSulTitolo: true,
@@ -160,7 +158,7 @@ async function gestisciTentativoTitolo(
   partita.punteggio = punteggioGuadagnato;
   await partita.save();
 
-  const utente = await Utente.findByPk(partita.userId);
+  const utente = await Utente.findByPk(partita.idUtente);
   if (utente) {
     utente.punteggioTotale += punteggioGuadagnato;
     await utente.save();
@@ -189,7 +187,7 @@ async function gestisciTentativoParola(
   const parolaTrovata = numeroOccorrenze > 0;
 
   await Tentativo.create({
-    sessionId: partita.id,
+    idPartita: partita.id,
     parolaTentata: parola,
     corretta: parolaTrovata,
     tentativoSulTitolo: false,
@@ -231,11 +229,11 @@ export const inviaTentativo = async (
   res: Response,
 ): Promise<void> => {
   try {
-    const userId = idUtenteAutenticato(req);
+    const idUtente = idUtenteAutenticato(req);
     const { idPartita, parola, isTitolo } = req.body;
 
     const partita = await Partita.findOne({
-      where: { id: idPartita, userId },
+      where: { id: idPartita, idUtente },
     });
 
     if (!partita) {
@@ -282,11 +280,11 @@ export const abbandonaPartita = async (
   res: Response,
 ): Promise<void> => {
   try {
-    const userId = idUtenteAutenticato(req);
+    const idUtente = idUtenteAutenticato(req);
     const { idPartita } = req.body;
 
     const partita = await Partita.findOne({
-      where: { id: idPartita, userId },
+      where: { id: idPartita, idUtente },
     });
 
     if (!partita) {
