@@ -1,9 +1,3 @@
-# WikiBlank
-
-Gioco stile impiccato basato su Wikipedia: ad ogni partita viene selezionato un articolo casuale di Wikipedia in italiano, il cui testo viene oscurato. L'obiettivo è indovinare le parole che compongono l'articolo, oppure tentare direttamente il titolo.
-
-Progetto per il corso di Tecnologie Web (Federico II) — traccia 4.B WEBTECH'S WIKIBLANK.
-
 ## Cosa serve prima di iniziare
 
 - Node.js
@@ -38,7 +32,7 @@ DATABASE_URL=postgres://utente:password@localhost:5432/wikiblank_db
 JWT_SECRET=una_stringa_casuale_e_segreta
 ```
 
-Sostituire `utente`/`password` con le credenziali del Postgres locale (di solito è `postgres:postgres`, a meno che non sia stata cambiata durante l'installazione). `JWT_SECRET` può essere una stringa qualsiasi, serve solo a firmare i token di accesso.
+Sostituire `utente`/`password` con le credenziali del Postgres locale. `JWT_SECRET` può essere una stringa qualsiasi, serve solo a firmare i token di accesso.
 
 Avviare il server:
 
@@ -46,7 +40,7 @@ Avviare il server:
 npm run dev
 ```
 
-Al primo avvio il backend si collega al database vuoto e crea da solo tutte le tabelle necessarie (non serve eseguire nessuna migrazione a mano). Se tutto va bene, in console compare la conferma della connessione e il server resta in ascolto su `http://localhost:3000`.
+Al primo avvio il backend si collega al database vuoto e crea da solo tutte le tabelle necessarie. Se tutto va bene, in console compare la conferma della connessione e il server resta in ascolto su `http://localhost:3000`.
 
 ## Frontend
 
