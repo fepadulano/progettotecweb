@@ -19,20 +19,18 @@ app.use("/api/utenti", rotteUtenti);
 app.use("/api/partite-concluse", rottePartiteConcluse);
 
 app.get("/", (req: Request, res: Response) => {
-  res.json({ messaggio: "Benvenuto su WikiBlank API Backend con TypeScript!" });
+  res.json({ messaggio: "Benvenuto su WikiBlank API Backend" });
 });
 
 app.listen(PORT, async () => {
-  console.log(`🚀 Server in esecuzione sulla porta ${PORT}`);
+  console.log(`Server in esecuzione sulla porta ${PORT}`);
 
   try {
     await sequelize.authenticate();
-    console.log(
-      "✅ Connessione al database PostgreSQL stabilita con successo!",
-    );
+    console.log("Connessione al database PostgreSQL stabilita con successo");
     await sequelize.sync({ force: false });
-    console.log("✅ Tabelle del database sincronizzate!");
+    console.log("Tabelle del database sincronizzate!");
   } catch (error) {
-    console.error("❌ Impossibile connettersi al database:", error);
+    console.error("Impossibile connettersi al database:", error);
   }
 });

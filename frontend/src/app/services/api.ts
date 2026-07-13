@@ -83,7 +83,7 @@ export class ApiService {
   }
 
   avviaPartita(): Observable<AvvioPartitaResponse> {
-    return this.http.get<AvvioPartitaResponse>(`${this.baseUrl}/partita/avvia`);
+    return this.http.post<AvvioPartitaResponse>(`${this.baseUrl}/partita/avvia`, {});
   }
 
   inviaTentativo(idPartita: number, parola: string, isTitolo: boolean): Observable<TentativoResponse> {
