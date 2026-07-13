@@ -1,7 +1,7 @@
 import express, { Application, Request, Response } from "express";
 import cors from "cors";
 import sequelize from "./config/database";
-import "./models"; // registra le relazioni tra i modelli (vedi models/index.ts)
+import "./models";
 
 import rotteAutenticazione from "./routes/auth.routes";
 import rottePartita from "./routes/partita.routes";
@@ -27,9 +27,9 @@ app.listen(PORT, async () => {
 
   try {
     await sequelize.authenticate();
-    console.log("Connessione al database PostgreSQL stabilita con successo");
+    console.log("Connessione al database stabilita con successo");
     await sequelize.sync({ force: false });
-    console.log("Tabelle del database sincronizzate!");
+    console.log("Tabelle del database sincronizzate");
   } catch (error) {
     console.error("Impossibile connettersi al database:", error);
   }

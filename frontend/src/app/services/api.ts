@@ -28,7 +28,7 @@ export interface AvvioPartitaRes {
 
 export interface TentativoRes {
   vittoria: boolean;
-  tipo: string; // TESTO, TITOLO, ERRORE, GIA_INDOVINATA ecc.
+  tipo: string; // testo, titolo, errore, gia_indovinata ecc
   messaggio: string;
   punteggio?: number; // presente solo a fine partita vinta
   titoloOriginale?: string; // inviato solo in caso di vittoria

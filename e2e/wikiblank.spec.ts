@@ -1,7 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
 
-// registra un utente con credenziali sempre diverse e fa subito il login,
-// usato dai test che devono partire già autenticati
 async function registerAndLogin(
   page: Page,
 ): Promise<{ email: string; password: string }> {

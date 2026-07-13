@@ -2,7 +2,7 @@
 
 Gioco stile impiccato basato su Wikipedia: ad ogni partita viene selezionato un articolo casuale di Wikipedia in italiano, il cui testo viene oscurato. L'obiettivo è indovinare le parole che compongono l'articolo, oppure tentare direttamente il titolo.
 
-Progetto universitario per il corso di Web Technologies (Federico II).
+Progetto universitario per il corso di Tecnologie Web (Federico II) — traccia 4.B WEBTECH'S WIKIBLANK.
 
 ## Stack
 

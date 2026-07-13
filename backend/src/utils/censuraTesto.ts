@@ -4,8 +4,8 @@ export function censuraTesto(
 ): string {
   return testoOriginale.replace(/[a-zA-Zà-ÿ]+/gi, (corrispondenza) => {
     if (paroleIndovinate.includes(corrispondenza.toLowerCase())) {
-      return corrispondenza; // parola indovinata: la lascia in chiaro
+      return corrispondenza; // parola indovinata quindi la lascia in chiaro
     }
-    return "_".repeat(corrispondenza.length); // parola ignota: trattini
+    return "_".repeat(corrispondenza.length); // se parola ignota allora trattini
   });
 }

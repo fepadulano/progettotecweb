@@ -10,7 +10,7 @@ class Partita extends Model {
   declare punteggio: number;
   declare idUtente: number;
   declare paroleIndovinate: string[];
-  // createdAt/updatedAt sono gestiti da Sequelize, e servono a calcolare il tempo impiegato
+  // createdAt/updatedAt sono gestiti da sequelize, e servono a calcolare il tempo impiegato
   declare readonly createdAt: Date;
   declare readonly updatedAt: Date;
 }
