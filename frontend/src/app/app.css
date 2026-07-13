@@ -81,7 +81,8 @@
   font-family: var(--font-serif);
 }
 
-.btn-nav-secondario {
+.btn-nav-secondario,
+.btn-nav-collegamento {
   padding: 6px 14px;
   background-color: transparent;
   color: #f2ede2;
@@ -92,11 +93,13 @@
   font-size: 11px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  text-decoration: none;
   transition:
     background-color 0.15s ease,
     color 0.15s ease;
 }
-.btn-nav-secondario:hover {
+.btn-nav-secondario:hover,
+.btn-nav-collegamento:hover {
   background-color: #f2ede2;
   color: var(--text-primary);
 }
