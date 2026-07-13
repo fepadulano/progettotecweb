@@ -6,19 +6,19 @@ Progetto per il corso di Tecnologie Web (Federico II) — traccia 4.B WEBTECH'S 
 
 ## Cosa serve prima di iniziare
 
-- Node.js (va bene una versione recente, il progetto è stato sviluppato con la 24)
+- Node.js
 - PostgreSQL installato e in esecuzione in locale
 
 ## Backend
 
-Entra nella cartella e installa le dipendenze:
+Entrare nella cartella e installare le dipendenze:
 
 ```bash
 cd backend
 npm install
 ```
 
-Crea il database vuoto (se non esiste già):
+Creare il database vuoto (se non esiste già):
 
 ```bash
 createdb wikiblank_db
@@ -30,7 +30,7 @@ oppure, da dentro `psql`:
 CREATE DATABASE wikiblank_db;
 ```
 
-Crea un file `.env` dentro `backend/` con questo contenuto:
+Creare un file `.env` dentro `backend/` con questo contenuto:
 
 ```
 PORT=3000
@@ -38,9 +38,9 @@ DATABASE_URL=postgres://utente:password@localhost:5432/wikiblank_db
 JWT_SECRET=una_stringa_casuale_e_segreta
 ```
 
-Sostituisci `utente`/`password` con le credenziali del tuo Postgres locale (di solito è `postgres:postgres`, a meno che tu non l'abbia cambiata durante l'installazione). `JWT_SECRET` può essere una stringa qualsiasi, serve solo a firmare i token di accesso.
+Sostituire `utente`/`password` con le credenziali del Postgres locale (di solito è `postgres:postgres`, a meno che non sia stata cambiata durante l'installazione). `JWT_SECRET` può essere una stringa qualsiasi, serve solo a firmare i token di accesso.
 
-Avvia il server:
+Avviare il server:
 
 ```bash
 npm run dev
