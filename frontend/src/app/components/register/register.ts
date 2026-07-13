@@ -47,11 +47,9 @@ export class Register {
           }, 1800);
         },
         error: (errore) => {
-          if (errore.error && (errore.error.errore || errore.error.messaggio)) {
-            this.messaggioErrore.set(errore.error.errore || errore.error.messaggio);
-          } else {
-            this.messaggioErrore.set('Credenziali non valide o utente già registrato.');
-          }
+          this.messaggioErrore.set(
+            errore.error?.messaggio ?? 'Credenziali non valide o utente già registrato.',
+          );
           console.error('Errore di registrazione:', errore);
         },
       });

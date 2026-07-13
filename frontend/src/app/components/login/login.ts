@@ -39,21 +39,12 @@ export class Login {
       })
       .subscribe({
         next: (risposta) => {
-          if (risposta.token) {
-            this.servizioAuth.loginSuccess(risposta.token, risposta.username!);
-            this.router.navigateByUrl('/partita');
-          } else if (risposta.errore || risposta.messaggio) {
-            // il backend a volte risponde 200 OK con un errore dentro il json
-            this.messaggioErrore.set(risposta.errore || risposta.messaggio || 'Errore di login');
-          }
+          this.servizioAuth.loginSuccess(risposta.token!, risposta.username!);
+          this.router.navigateByUrl('/partita');
         },
         error: (errore) => {
-          // status 400/401/404: il messaggio vero è dentro errore.error
-          if (errore.error && (errore.error.errore || errore.error.messaggio)) {
-            this.messaggioErrore.set(errore.error.errore || errore.error.messaggio);
-          } else {
-            this.messaggioErrore.set('Credenziali errate');
-          }
+          // status non-2xx: lo status HTTP dice già che è un errore, basta il messaggio
+          this.messaggioErrore.set(errore.error?.messaggio ?? 'Credenziali errate');
         },
       });
   }

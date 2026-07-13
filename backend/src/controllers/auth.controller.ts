@@ -11,7 +11,7 @@ export const registra = async (req: Request, res: Response): Promise<void> => {
     if (utenteEsistente) {
       res
         .status(400)
-        .json({ errore: "Un account con questa email esiste già." });
+        .json({ messaggio: "Un account con questa email esiste già." });
       return;
     }
 
@@ -27,7 +27,7 @@ export const registra = async (req: Request, res: Response): Promise<void> => {
     res.status(201).json({ messaggio: "Utente registrato con successo!" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ errore: "Errore durante la registrazione." });
+    res.status(500).json({ messaggio: "Errore durante la registrazione." });
   }
 };
 
@@ -37,13 +37,13 @@ export const accedi = async (req: Request, res: Response): Promise<void> => {
 
     const utente = await Utente.findOne({ where: { email } });
     if (!utente) {
-      res.status(404).json({ errore: "Utente non trovato." });
+      res.status(404).json({ messaggio: "Utente non trovato." });
       return;
     }
 
     const passwordValida = await bcrypt.compare(password, utente.password);
     if (!passwordValida) {
-      res.status(401).json({ errore: "Password errata." });
+      res.status(401).json({ messaggio: "Password errata." });
       return;
     }
 
@@ -58,6 +58,6 @@ export const accedi = async (req: Request, res: Response): Promise<void> => {
       .json({ messaggio: "Login effettuato!", token, username: utente.username });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ errore: "Errore durante il login." });
+    res.status(500).json({ messaggio: "Errore durante il login." });
   }
 };

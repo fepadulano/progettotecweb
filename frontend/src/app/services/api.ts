@@ -15,10 +15,9 @@ export interface RichiestaLogin {
 }
 
 export interface AuthRes {
-  messaggio?: string;
-  token?: string;
+  messaggio: string; // testo dell'esito, positivo o negativo a seconda dello status HTTP
+  token?: string; // presente solo nella risposta del login
   username?: string; // presente solo nella risposta del login
-  errore?: string; // presente se le credenziali sono errate o se l'utente esiste già
 }
 
 export interface AvvioPartitaRes {
